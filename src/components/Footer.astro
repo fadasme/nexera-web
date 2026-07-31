@@ -1,0 +1,185 @@
+---
+import { site } from '@/config/site';
+
+const year = new Date().getFullYear();
+const ubicacion = [site.city, site.country === 'CL' ? 'Chile' : site.country]
+  .filter(Boolean)
+  .join(', ');
+---
+
+<footer class="footer">
+  <div class="travel-line top"><span></span></div>
+  <div class="container inner">
+    <div class="grid">
+      <div class="brand">
+        <div class="marca">NEXERA</div>
+        <p class="copy">
+          Boutique tecnológica chilena especializada en IA, capacitación, automatización y
+          modernización para pymes.
+        </p>
+        <div class="pill">
+          <span class="punto" aria-hidden="true"></span>Atención directa
+        </div>
+      </div>
+
+      <div class="col">
+        <p class="titulo">Servicios</p>
+        <div class="links">
+          <a href="#servicios" data-goto-tab="1">Capacitación en IA</a>
+          <a href="#servicios" data-goto-tab="0">Inteligencia Artificial</a>
+          <a href="#automatizacion">Automatización</a>
+          <a href="#servicios" data-goto-tab="3">Consultoría tecnológica</a>
+        </div>
+      </div>
+
+      <div class="col">
+        <p class="titulo">Nexera</p>
+        <div class="links">
+          <a href="#servicios" data-goto-tab="3">Innovación</a>
+          <a href="#proceso">Nosotros</a>
+          <a href="#contacto">Contacto</a>
+        </div>
+      </div>
+
+      <div class="col">
+        <p class="titulo">Contacto</p>
+        <div class="links mono">
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+          <a href={`https://wa.me/${site.whatsapp}`} rel="noopener">WhatsApp</a>
+          <span>{ubicacion}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <span>© {year} {site.name}</span>
+      <span>{ubicacion} · Atención directa</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    position: relative;
+    background: var(--bg);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+  }
+
+  .top {
+    top: -1px;
+  }
+
+  .top > span {
+    width: 20%;
+    animation-duration: 6s;
+  }
+
+  .inner {
+    position: relative;
+    padding-top: 64px;
+    padding-bottom: 32px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr 1fr;
+    gap: 36px;
+  }
+
+  .marca {
+    font: 800 24px/1 var(--font-display);
+    letter-spacing: 0.12em;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 16px;
+  }
+
+  .copy {
+    margin: 0 0 18px;
+    font: 400 13.5px/1.6 var(--font-sans);
+    color: var(--text-soft);
+    max-width: 24em;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    border: 1px solid rgba(69, 199, 255, 0.3);
+    padding: 9px 14px;
+    border-radius: 99px;
+    font: 500 10.5px/1 var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-body-2);
+  }
+
+  .punto {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: glow 2.2s ease-in-out infinite;
+  }
+
+  .titulo {
+    margin: 0 0 16px;
+    font: 500 10px/1 var(--font-mono);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font: 400 13.5px/1.4 var(--font-sans);
+  }
+
+  .links a {
+    color: var(--text-body);
+    transition:
+      transform 0.25s,
+      color 0.25s;
+    align-self: flex-start;
+  }
+
+  .links a:hover {
+    color: var(--accent);
+    transform: translateX(4px);
+  }
+
+  .links.mono {
+    font: 400 13px/1.5 var(--font-mono);
+    color: var(--text-body);
+  }
+
+  .bottom {
+    margin-top: 44px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    font: 400 11.5px/1 var(--font-mono);
+    color: var(--text-mute-2);
+  }
+
+  @media (max-width: 1024px) {
+    .grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+  }
+</style>

@@ -1,13 +1,31 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Hero from '@/components/Hero.astro';
+import Proceso from '@/components/Proceso.astro';
+import Servicios from '@/components/Servicios.astro';
+import Automatizacion from '@/components/Automatizacion.astro';
+import Contacto from '@/components/Contacto.astro';
+import Footer from '@/components/Footer.astro';
 import { site } from '@/config/site';
 ---
 
 <Layout
-  title={`${site.name} — ${site.tagline}`}
+  title={`${site.name} — Tecnología e Inteligencia Artificial para tu empresa`}
   description={site.description}
 >
-  <main class="container">
-    <h1>Placeholder — se reemplaza con el port del mockup (Task 6)</h1>
+  <Nav />
+  <main>
+    <Hero />
+    <Proceso />
+    <Servicios />
+    <Automatizacion />
+    <Contacto />
   </main>
+  <Footer />
 </Layout>
+
+<script>
+  import '@/scripts/enhance';
+  import '@/scripts/form';
+</script>

@@ -1,0 +1,221 @@
+---
+import { PASOS } from '@/config/contenido';
+---
+
+<section id="proceso" class="container proceso">
+  <div class="head">
+    <p class="eyebrow">Cómo trabajamos</p>
+    <h2>Comenzamos con alcances controlados y evolucionamos según resultados.</h2>
+  </div>
+
+  <div class="timeline" data-timeline>
+    {
+      PASOS.map((p, i) => (
+        <div class="tl-item">
+          <button
+            type="button"
+            class={`tl-node ${i === 0 ? 'active' : ''}`}
+            data-step-btn={i}
+            aria-label={`Etapa ${p.num}: ${p.title}`}
+          >
+            <span class="dot" aria-hidden="true" />
+            <span class="num">{p.num}</span>
+            <span class="title">{p.title}</span>
+          </button>
+          {i < PASOS.length - 1 && <div class="dash-line tl-line" aria-hidden="true" />}
+        </div>
+      ))
+    }
+  </div>
+
+  {
+    PASOS.map((p, i) => (
+      <article class={`detalle ${i === 0 ? 'active' : ''}`} data-step-panel={i}>
+        <p class="etapa">Etapa {p.num} de 05</p>
+        <h3>{p.title}</h3>
+        <p class="desc">{p.desc}</p>
+      </article>
+    ))
+  }
+</section>
+
+<style>
+  .proceso {
+    padding-top: 80px;
+    padding-bottom: 88px;
+  }
+
+  .head {
+    max-width: 40em;
+    margin-bottom: 48px;
+  }
+
+  .head .eyebrow {
+    margin: 0 0 18px;
+  }
+
+  h2 {
+    margin: 0;
+    font: 800 42px/1.05 var(--font-display);
+    letter-spacing: -0.03em;
+    color: var(--text-hi);
+    text-wrap: pretty;
+  }
+
+  .timeline {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 36px;
+  }
+
+  .tl-item {
+    display: flex;
+    align-items: flex-start;
+    flex: 1;
+  }
+
+  .tl-item:last-child {
+    flex: none;
+  }
+
+  .tl-node {
+    cursor: pointer;
+    flex: none;
+    width: 140px;
+    background: none;
+    border: 0;
+    padding: 0;
+    text-align: left;
+  }
+
+  .tl-node .dot {
+    display: block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--bg-node);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    transition: all 0.4s;
+  }
+
+  .tl-node .num {
+    display: block;
+    font: 500 11px/1 var(--font-mono);
+    color: var(--text-mute);
+    margin: 16px 0 8px;
+  }
+
+  .tl-node .title {
+    display: block;
+    font: 600 15px/1.25 var(--font-display);
+    color: var(--text-soft);
+  }
+
+  .tl-node.active .dot {
+    background: var(--accent);
+    border: 0;
+    box-shadow: 0 0 0 6px rgba(69, 199, 255, 0.16);
+  }
+
+  .tl-node.active .num {
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .tl-node.active .title {
+    font-weight: 700;
+    color: var(--text-hi);
+  }
+
+  .tl-line {
+    flex: 1;
+    margin-top: 9px;
+    background-image: repeating-linear-gradient(
+      90deg,
+      rgba(69, 199, 255, 0.55) 0 6px,
+      transparent 6px 14px
+    );
+  }
+
+  .detalle {
+    display: none;
+    border: 1px solid rgba(69, 199, 255, 0.28);
+    background: linear-gradient(180deg, rgba(69, 199, 255, 0.07), rgba(69, 199, 255, 0));
+    padding: 36px 38px;
+  }
+
+  .detalle.active {
+    display: block;
+    animation: fadein 0.4s both;
+  }
+
+  /* Sin JS: las 5 etapas quedan visibles, apiladas. */
+  :global(html.no-js) .detalle {
+    display: block;
+  }
+
+  :global(html.no-js) .detalle + .detalle {
+    margin-top: 16px;
+  }
+
+  .etapa {
+    margin: 0 0 14px;
+    font: 500 10.5px/1 var(--font-mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  h3 {
+    margin: 0 0 12px;
+    font: 700 27px/1.2 var(--font-display);
+    letter-spacing: -0.02em;
+    color: var(--text-hi);
+  }
+
+  .desc {
+    margin: 0;
+    font: 400 16.5px/1.6 var(--font-sans);
+    color: var(--text-body);
+    max-width: 44em;
+    text-wrap: pretty;
+  }
+
+  @media (max-width: 1024px) {
+    .timeline {
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .tl-line {
+      display: none;
+    }
+
+    .tl-item {
+      flex: none;
+    }
+
+    h2 {
+      font-size: 34px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .proceso {
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
+
+    h2 {
+      font-size: 28px;
+    }
+
+    .tl-node {
+      width: 120px;
+    }
+
+    .detalle {
+      padding: 24px 22px;
+    }
+  }
+</style>

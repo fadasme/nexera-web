@@ -1,0 +1,121 @@
+---
+import ContactForm from '@/components/ContactForm.astro';
+import { site } from '@/config/site';
+
+const ubicacion = [site.city, site.country === 'CL' ? 'Chile' : site.country]
+  .filter(Boolean)
+  .join(', ');
+---
+
+<section id="contacto" class="contacto-wrap">
+  <div class="container contacto">
+    <div class="grid">
+      <div class="info">
+        <p class="eyebrow">Contacto</p>
+        <h2>Cuéntanos qué proceso quieres mejorar o qué desafío de IA quieres resolver.</h2>
+        <p class="sub">
+          Revisaremos tu necesidad para determinar si podemos ayudarte directamente o si requiere
+          capacidades adicionales.
+        </p>
+        <div class="datos">
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+          <a href={`https://wa.me/${site.whatsapp}`} rel="noopener">
+            Escríbenos por WhatsApp <span class="flecha" aria-hidden="true">→</span>
+          </a>
+          <span class="lugar">{ubicacion} · Atención directa</span>
+        </div>
+      </div>
+
+      <ContactForm />
+    </div>
+  </div>
+</section>
+
+<style>
+  .contacto-wrap {
+    background: var(--bg-alt);
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  .contacto {
+    padding-top: 88px;
+    padding-bottom: 88px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  .eyebrow {
+    margin: 0 0 18px;
+  }
+
+  h2 {
+    margin: 0 0 18px;
+    font: 800 36px/1.07 var(--font-display);
+    letter-spacing: -0.03em;
+    color: var(--text-hi);
+    text-wrap: pretty;
+  }
+
+  .sub {
+    margin: 0 0 32px;
+    font: 400 15.5px/1.65 var(--font-sans);
+    color: var(--text-dim);
+    max-width: 38em;
+    text-wrap: pretty;
+  }
+
+  .datos {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font: 400 13.5px/1.5 var(--font-mono);
+  }
+
+  .datos a {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    align-self: flex-start;
+    transition: transform 0.25s;
+  }
+
+  .datos a:hover {
+    transform: translateX(4px);
+  }
+
+  .flecha {
+    color: var(--text-mute);
+  }
+
+  .lugar {
+    color: var(--text-soft);
+  }
+
+  @media (max-width: 1024px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+
+    h2 {
+      font-size: 30px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .contacto {
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
+
+    h2 {
+      font-size: 26px;
+    }
+  }
+</style>
