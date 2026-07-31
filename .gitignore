@@ -1,0 +1,15 @@
+# build
+dist/
+.astro/
+node_modules/
+
+# entorno — nunca commitear secretos
+.env
+.env.bak
+.dev.vars
+
+# cloudflare local
+.wrangler/
+
+# so
+.DS_Store

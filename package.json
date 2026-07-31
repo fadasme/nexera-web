@@ -1,0 +1,45 @@
+{
+  "name": "nexera-landing",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "dev:cf": "DEPLOY_TARGET=cloudflare astro dev",
+    "build": "astro build",
+    "build:node": "DEPLOY_TARGET=node astro build",
+    "build:cf": "DEPLOY_TARGET=cloudflare astro build",
+    "check": "astro check",
+    "preview": "astro preview",
+    "setup": "node scripts/setup.mjs",
+    "migrate:php": "node scripts/migrate-php.mjs",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^12.5.0",
+    "@astrojs/node": "^9.2.0",
+    "@astrojs/sitemap": "^3.4.0",
+    "@fontsource/archivo": "^5.2.5",
+    "@fontsource/ibm-plex-mono": "^5.2.5",
+    "@fontsource/ibm-plex-sans": "^5.2.5",
+    "astro": "^5.10.0",
+    "mysql2": "^3.14.0",
+    "nodemailer": "^6.10.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@types/node": "^22.15.0",
+    "@types/nodemailer": "^6.4.17",
+    "sharp": "^0.34.0",
+    "typescript": "^5.8.0",
+    "wrangler": "^4.20.0"
+  },
+  "allowScripts": {
+    "workerd@1.20260114.0": true,
+    "workerd@1.20260730.1": true
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@driver/db": ["src/lib/db/db.mysql.ts"],
+      "@driver/smtp": ["src/lib/mail/smtp.real.ts"]
+    }
+  },
+  "exclude": ["dist", "node_modules", ".wrangler", "_design"]
+}

@@ -1,0 +1,33 @@
+---
+import { site } from '@/config/site';
+
+// LocalBusiness si hay dirección física (calle o ciudad); Organization si no.
+const hasAddress = Boolean(site.street || site.city);
+
+const ld: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': hasAddress ? 'LocalBusiness' : 'Organization',
+  name: site.name,
+  url: site.url,
+  email: site.email,
+  telephone: site.phone,
+  description: site.description,
+  image: new URL('/og.png', site.url).href,
+};
+
+if (hasAddress) {
+  ld.address = {
+    '@type': 'PostalAddress',
+    ...(site.street ? { streetAddress: site.street } : {}),
+    addressLocality: site.city,
+    addressRegion: site.region,
+    addressCountry: site.country,
+  };
+}
+
+if (site.social.length > 0) {
+  ld.sameAs = site.social;
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(ld)} is:inline />
