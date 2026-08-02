@@ -1,0 +1,34 @@
+---
+import { site } from '@/config/site';
+
+// LocalBusiness solo si se configuró una dirección física; ciudad por sí sola no basta.
+const hasAddress = Boolean(site.street.trim());
+const hasLocality = Boolean(site.city.trim() || site.region.trim() || site.country.trim());
+
+const ld: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': hasAddress ? 'LocalBusiness' : 'Organization',
+  name: site.name,
+  url: site.url,
+  email: site.email,
+  telephone: site.phone,
+  description: site.description,
+  image: new URL('/og.png', site.url).href,
+};
+
+if (hasAddress || hasLocality) {
+  ld.address = {
+    '@type': 'PostalAddress',
+    ...(hasAddress ? { streetAddress: site.street.trim() } : {}),
+    ...(site.city.trim() ? { addressLocality: site.city.trim() } : {}),
+    ...(site.region.trim() ? { addressRegion: site.region.trim() } : {}),
+    ...(site.country.trim() ? { addressCountry: site.country.trim() } : {}),
+  };
+}
+
+if (site.social.length > 0) {
+  ld.sameAs = site.social;
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(ld)} is:inline />

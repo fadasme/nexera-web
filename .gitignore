@@ -1,4 +1,26 @@
+# build
+dist/
+.astro/
+node_modules/
+
+# entorno — nunca commitear secretos
+.env
+.env.bak
+.dev.vars
+.env.tmp-*
+.env.bak.tmp-*
+.dev.vars.tmp-*
+
+# cloudflare local
+.wrangler/
+
+# so
 .DS_Store
+
+.serena/
+.superpowers/
+
+# legacy static outputs
 outputs/.DS_Store
 outputs/*.md
 outputs/*.html

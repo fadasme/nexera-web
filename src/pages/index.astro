@@ -1,0 +1,31 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Hero from '@/components/Hero.astro';
+import Proceso from '@/components/Proceso.astro';
+import Servicios from '@/components/Servicios.astro';
+import Automatizacion from '@/components/Automatizacion.astro';
+import Contacto from '@/components/Contacto.astro';
+import Footer from '@/components/Footer.astro';
+import { site } from '@/config/site';
+---
+
+<Layout
+  title={site.seoTitle}
+  description={site.description}
+>
+  <Nav />
+  <main>
+    <Hero />
+    <Proceso />
+    <Servicios />
+    <Automatizacion />
+    <Contacto />
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  import '@/scripts/enhance';
+  import '@/scripts/form';
+</script>

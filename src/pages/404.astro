@@ -1,0 +1,49 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import { site } from '@/config/site';
+---
+
+<Layout
+  title={`Página no encontrada — ${site.name}`}
+  description="La página que buscas no existe."
+  noindex
+>
+  <Nav />
+  <main class="container nf">
+    <p class="codigo">404</p>
+    <h1>Esta página no existe.</h1>
+    <p class="detalle">Puede que el enlace esté vencido o mal escrito.</p>
+    <a href="/" class="btn">Volver al inicio <span aria-hidden="true">→</span></a>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .nf {
+    padding-top: 110px;
+    padding-bottom: 140px;
+    min-height: 50vh;
+  }
+
+  .codigo {
+    margin: 0 0 18px;
+    font: 500 11px/1 var(--font-mono);
+    letter-spacing: 0.18em;
+    color: var(--accent);
+  }
+
+  h1 {
+    margin: 0 0 14px;
+    font: 800 44px/1.05 var(--font-display);
+    letter-spacing: -0.03em;
+    color: var(--text-hi);
+  }
+
+  .detalle {
+    margin: 0 0 34px;
+    font: 400 15.5px/1.6 var(--font-sans);
+    color: var(--text-body);
+  }
+</style>

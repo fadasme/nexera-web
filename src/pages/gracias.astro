@@ -1,0 +1,82 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import { site } from '@/config/site';
+---
+
+<Layout
+  title={`Gracias — ${site.name}`}
+  description="Recibimos tu consulta. Te responderemos a la brevedad."
+  noindex
+>
+  <Nav />
+  <main class="container gracias">
+    <div class="card">
+      <div class="check" aria-hidden="true">✓</div>
+      <h1>
+        Revisaremos tu necesidad para determinar si podemos ayudarte directamente o si requiere
+        capacidades adicionales.
+      </h1>
+      <p class="detalle">
+        Tu consulta quedó registrada. Si prefieres, también puedes escribirnos a
+        <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+      <a href="/" class="btn-ghost volver">← Volver al inicio</a>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  import { track } from '@/scripts/track';
+  // Conversión del flujo sin JavaScript (el flujo fetch la dispara inline).
+  track('contacto_enviado');
+</script>
+
+<style>
+  .gracias {
+    padding-top: 96px;
+    padding-bottom: 120px;
+    min-height: 52vh;
+  }
+
+  .card {
+    max-width: 620px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: var(--bg);
+    padding: 44px 40px;
+    animation: rise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .check {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font: 500 16px/1 var(--font-mono);
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    margin: 0 0 16px;
+    font: 700 24px/1.35 var(--font-display);
+    letter-spacing: -0.01em;
+    color: var(--text-hi);
+    text-wrap: pretty;
+  }
+
+  .detalle {
+    margin: 0 0 30px;
+    font: 400 15px/1.65 var(--font-sans);
+    color: var(--text-body);
+  }
+
+  .volver {
+    font-size: 12px;
+  }
+</style>

@@ -1,0 +1,28 @@
+[Unit]
+Description=Nexera Astro application
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=nexera
+Group=nexera
+WorkingDirectory=/opt/nexera
+EnvironmentFile=/opt/nexera/.env
+Environment=NODE_ENV=production
+Environment=HOST=127.0.0.1
+ExecStart=/usr/bin/node /opt/nexera/dist/server/entry.mjs
+Restart=always
+RestartSec=5
+TimeoutStopSec=30
+KillSignal=SIGTERM
+UMask=0027
+NoNewPrivileges=true
+PrivateDevices=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+RestrictSUIDSGID=true
+
+[Install]
+WantedBy=multi-user.target

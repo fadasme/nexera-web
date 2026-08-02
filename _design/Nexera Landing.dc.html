@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{margin:0;padding:0;background:#080D16;-webkit-font-smoothing:antialiased}
+a{color:#45C7FF;text-decoration:none}
+a:hover{color:#8FDBFF}
+button,input,textarea,select{font-family:inherit}
+input::placeholder,textarea::placeholder{color:#4E5F74}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+@keyframes slide14{to{background-position:14px 0}}
+@keyframes glow{0%,100%{opacity:.2}50%{opacity:.55}}
+@keyframes travel{0%{transform:translateX(-40%);opacity:0}12%{opacity:1}88%{opacity:1}100%{transform:translateX(560%);opacity:0}}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.07)}}
+</style>
+</helmet>
+
+<div style="background:#080D16;font-family:'IBM Plex Sans',sans-serif;min-height:100vh">
+
+  <div style="position:sticky;top:0;z-index:20;background:rgba(10,17,28,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08)">
+    <div style="position:relative;max-width:1280px;margin:0 auto;padding:18px 48px;display:flex;align-items:center;justify-content:space-between">
+      <a href="#top" style="font:800 17px/1 Archivo,sans-serif;letter-spacing:.16em;background:linear-gradient(90deg,#45C7FF,#C86BFF);-webkit-background-clip:text;background-clip:text;color:transparent">NEXERA</a>
+      <div style="display:flex;align-items:center;gap:22px;font:400 13px/1 'IBM Plex Sans',sans-serif">
+        <a href="#servicios" style="color:#93A4B8;transition:color .25s" style-hover="color:#45C7FF">Servicios</a>
+        <a href="#servicios" onClick="{{ go1 }}" style="color:#93A4B8;transition:color .25s" style-hover="color:#45C7FF">Capacitación en IA</a>
+        <a href="#servicios" onClick="{{ go0 }}" style="color:#93A4B8;transition:color .25s" style-hover="color:#45C7FF">Inteligencia Artificial</a>
+        <a href="#automatizacion" style="color:#93A4B8;transition:color .25s" style-hover="color:#45C7FF">Automatización</a>
+        <a href="#servicios" onClick="{{ go3 }}" style="color:#93A4B8;transition:color .25s" style-hover="color:#45C7FF">Innovación</a>
+        <a href="#proceso" style="color:#93A4B8;transition:color .25s" style-hover="color:#45C7FF">Nosotros</a>
+        <a href="#contacto" style="background:#45C7FF;color:#04121C;padding:10px 18px;border-radius:3px;font-weight:600;transition:transform .25s" style-hover="transform:translateY(-1px)">Contacto</a>
+      </div>
+      <div style="position:absolute;left:0;right:0;bottom:-1px;height:1px;overflow:hidden"><span style="display:block;width:18%;height:100%;background:linear-gradient(90deg,transparent,#45C7FF,transparent);animation:travel 4.5s linear infinite"></span></div>
+    </div>
+  </div>
+
+  <div id="top" style="position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.08)">
+    <img src="assets/nexera-hero.png" alt="Operación tecnológica Nexera" style="position:absolute;right:0;top:0;width:64%;height:100%;object-fit:cover;animation:kb 26s ease-in-out infinite alternate">
+    <div style="position:absolute;inset:0;background:linear-gradient(90deg,#080D16 0%,#080D16 34%,rgba(8,13,22,.72) 58%,rgba(8,13,22,.35) 100%)"></div>
+    <div style="position:relative;max-width:1280px;margin:0 auto;padding:88px 48px 80px">
+      <div style="max-width:760px;animation:rise .8s cubic-bezier(.2,.8,.2,1) both">
+        <img src="assets/nexera-logo.png" alt="Nexera" style="display:block;width:188px;height:auto;margin:0 0 28px">
+        <div style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#45C7FF;margin-bottom:20px">Tecnología e Inteligencia Artificial para tu empresa</div>
+        <h1 style="margin:0 0 22px;font:800 56px/1.03 Archivo,sans-serif;letter-spacing:-.035em;color:#EAF1F8;text-wrap:pretty">Tecnología e Inteligencia Artificial para hacer crecer tu empresa.</h1>
+        <p style="margin:0 0 34px;font:400 16.5px/1.65 'IBM Plex Sans',sans-serif;color:#9FB6CC;max-width:34em;text-wrap:pretty">Boutique tecnológica con atención directa, experiencia senior y soluciones adaptadas a la realidad de cada organización.</p>
+        <div style="display:flex;gap:14px;margin-bottom:44px">
+          <a href="#contacto" style="display:inline-flex;align-items:center;gap:12px;background:#45C7FF;color:#04121C;padding:16px 26px;border-radius:3px;font:600 13px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;transition:transform .25s,box-shadow .25s" style-hover="transform:translateY(-2px);box-shadow:0 12px 30px -12px rgba(69,199,255,.7)">Conversemos <span>→</span></a>
+          <a href="#servicios" style="display:inline-flex;align-items:center;border:1px solid rgba(255,255,255,.22);color:#D6E2EF;padding:16px 26px;border-radius:3px;font:600 13px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;transition:border-color .25s,color .25s" style-hover="border-color:#45C7FF;color:#45C7FF">Conoce nuestros servicios</a>
+        </div>
+        <div style="display:flex;align-items:flex-start">
+          <div style="flex:none">
+            <div style="width:12px;height:12px;border-radius:50%;background:#45C7FF;box-shadow:0 0 0 5px rgba(69,199,255,.14);margin-bottom:14px"></div>
+            <div style="font:700 14px/1.2 Archivo,sans-serif;color:#EAF1F8;margin-bottom:6px">IA</div>
+            <div style="font:400 12.5px/1.45 'IBM Plex Sans',sans-serif;color:#8FA0B4;max-width:12em">aplicada a problemas reales</div>
+          </div>
+          <div style="flex:1;height:1px;margin:6px 20px 0;background-image:repeating-linear-gradient(90deg,rgba(69,199,255,.5) 0 6px,transparent 6px 14px);background-size:14px 1px;animation:slide14 .9s linear infinite"></div>
+          <div style="flex:none">
+            <div style="width:12px;height:12px;border-radius:50%;background:#0E1725;border:1px solid rgba(255,255,255,.25);margin-bottom:14px"></div>
+            <div style="font:700 14px/1.2 Archivo,sans-serif;color:#EAF1F8;margin-bottom:6px">Capacitación</div>
+            <div style="font:400 12.5px/1.45 'IBM Plex Sans',sans-serif;color:#8FA0B4;max-width:12em">para gerencias y equipos</div>
+          </div>
+          <div style="flex:1;height:1px;margin:6px 20px 0;background-image:repeating-linear-gradient(90deg,rgba(69,199,255,.5) 0 6px,transparent 6px 14px);background-size:14px 1px;animation:slide14 .9s linear infinite"></div>
+          <div style="flex:none">
+            <div style="width:12px;height:12px;border-radius:50%;background:#0E1725;border:1px solid rgba(255,255,255,.25);margin-bottom:14px"></div>
+            <div style="font:700 14px/1.2 Archivo,sans-serif;color:#EAF1F8;margin-bottom:6px">Boutique</div>
+            <div style="font:400 12.5px/1.45 'IBM Plex Sans',sans-serif;color:#8FA0B4;max-width:12em">atención directa y flexible</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="proceso" style="max-width:1280px;margin:0 auto;padding:80px 48px 88px">
+    <div style="max-width:40em;margin-bottom:48px">
+      <div style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#45C7FF;margin-bottom:18px">Cómo trabajamos</div>
+      <h2 style="margin:0;font:800 42px/1.05 Archivo,sans-serif;letter-spacing:-.03em;color:#EAF1F8;text-wrap:pretty">Comenzamos con alcances controlados y evolucionamos según resultados.</h2>
+    </div>
+    <div style="display:flex;align-items:flex-start;margin-bottom:36px">
+      <sc-for list="{{ nodes }}" as="node" hint-placeholder-count="5">
+        <div style="display:flex;align-items:flex-start;flex:1">
+          <div onClick="{{ node.go }}" style="cursor:pointer;flex:none;width:140px">
+            <sc-if value="{{ node.active }}">
+              <div style="width:18px;height:18px;border-radius:50%;background:#45C7FF;box-shadow:0 0 0 6px rgba(69,199,255,.16);transition:all .4s"></div>
+              <div style="font:600 11px/1 'IBM Plex Mono',monospace;color:#45C7FF;margin:16px 0 8px">{{ node.num }}</div>
+              <div style="font:700 15px/1.25 Archivo,sans-serif;color:#EAF1F8">{{ node.title }}</div>
+            </sc-if>
+            <sc-if value="{{ node.idle }}">
+              <div style="width:18px;height:18px;border-radius:50%;background:#0E1725;border:1px solid rgba(255,255,255,.22);transition:all .4s"></div>
+              <div style="font:500 11px/1 'IBM Plex Mono',monospace;color:#54677E;margin:16px 0 8px">{{ node.num }}</div>
+              <div style="font:600 15px/1.25 Archivo,sans-serif;color:#7E8FA3">{{ node.title }}</div>
+            </sc-if>
+          </div>
+          <sc-if value="{{ node.hasLine }}">
+            <div style="flex:1;height:1px;margin-top:9px;background-image:repeating-linear-gradient(90deg,rgba(69,199,255,.55) 0 6px,transparent 6px 14px);background-size:14px 1px;animation:slide14 .9s linear infinite"></div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+    <div style="border:1px solid rgba(69,199,255,.28);background:linear-gradient(180deg,rgba(69,199,255,.07),rgba(69,199,255,0));padding:36px 38px">
+      <div style="font:500 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#45C7FF;margin-bottom:14px">Etapa {{ stepNum }} de 05</div>
+      <h3 style="margin:0 0 12px;font:700 27px/1.2 Archivo,sans-serif;letter-spacing:-.02em;color:#EAF1F8">{{ stepTitle }}</h3>
+      <p style="margin:0;font:400 16.5px/1.6 'IBM Plex Sans',sans-serif;color:#93A4B8;max-width:44em;text-wrap:pretty">{{ stepDesc }}</p>
+    </div>
+  </div>
+
+  <div id="servicios" style="background:#0B1420;border-top:1px solid rgba(255,255,255,.07)">
+    <div style="max-width:1280px;margin:0 auto;padding:84px 48px">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:40px;margin-bottom:40px">
+        <div>
+          <div style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#45C7FF;margin-bottom:16px">Servicios</div>
+          <h2 style="margin:0;font:800 38px/1.06 Archivo,sans-serif;letter-spacing:-.03em;color:#EAF1F8;max-width:24em;text-wrap:pretty">Servicios principales para empresas que quieren avanzar con tecnología real.</h2>
+        </div>
+        <span style="flex:none;font:400 12px/1.5 'IBM Plex Mono',monospace;color:#54677E">↑ pasa el cursor por la lista</span>
+      </div>
+      <div style="display:grid;grid-template-columns:400px 1fr;gap:40px;align-items:stretch">
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ tabs }}" as="tab" hint-placeholder-count="5">
+            <div onMouseEnter="{{ tab.go }}" onClick="{{ tab.go }}" style="cursor:pointer">
+              <sc-if value="{{ tab.active }}">
+                <div style="display:flex;align-items:center;gap:14px;padding:19px 20px;background:rgba(69,199,255,.1);border-left:2px solid #45C7FF;transition:all .3s">
+                  <span style="font:500 11px/1 'IBM Plex Mono',monospace;color:#45C7FF">{{ tab.num }}</span>
+                  <span style="font:700 16px/1.3 Archivo,sans-serif;color:#EAF1F8">{{ tab.title }}</span>
+                </div>
+              </sc-if>
+              <sc-if value="{{ tab.idle }}">
+                <div style="display:flex;align-items:center;gap:14px;padding:19px 20px;border-left:2px solid rgba(255,255,255,.09);transition:all .3s" style-hover="border-left-color:rgba(69,199,255,.5)">
+                  <span style="font:500 11px/1 'IBM Plex Mono',monospace;color:#54677E">{{ tab.num }}</span>
+                  <span style="font:600 16px/1.3 Archivo,sans-serif;color:#8FA0B4">{{ tab.title }}</span>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.1);background:#080D16;padding:38px 36px">
+          <h3 style="margin:0 0 14px;font:700 29px/1.15 Archivo,sans-serif;letter-spacing:-.025em;color:#EAF1F8">{{ tabTitle }}</h3>
+          <p style="margin:0 0 28px;font:400 16.5px/1.65 'IBM Plex Sans',sans-serif;color:#93A4B8;max-width:44em;text-wrap:pretty">{{ tabDesc }}</p>
+          <div style="height:1px;background-image:repeating-linear-gradient(90deg,rgba(69,199,255,.5) 0 5px,transparent 5px 12px);background-size:12px 1px;animation:slide14 .9s linear infinite"></div>
+          <div style="margin-top:26px;display:flex;flex-wrap:wrap;gap:10px">
+            <sc-for list="{{ tabChips }}" as="chip" hint-placeholder-count="4">
+              <span style="border:1px solid rgba(255,255,255,.14);padding:9px 14px;border-radius:2px;font:400 12px/1 'IBM Plex Mono',monospace;color:#8FA0B4">{{ chip }}</span>
+            </sc-for>
+          </div>
+          <a href="#contacto" style="display:inline-flex;align-items:center;gap:12px;align-self:flex-start;margin-top:auto;padding:15px 24px;border:1px solid rgba(69,199,255,.5);color:#45C7FF;border-radius:3px;font:600 12px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;transition:background .25s,color .25s" style-hover="background:#45C7FF;color:#04121C">Conversemos <span>→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="automatizacion" style="max-width:1280px;margin:0 auto;padding:84px 48px">
+    <div style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#45C7FF;margin-bottom:16px">Automatización</div>
+    <h2 style="margin:0 0 44px;font:800 40px/1.05 Archivo,sans-serif;letter-spacing:-.03em;color:#EAF1F8">Menos tareas repetitivas, más tiempo para el negocio.</h2>
+    <div style="display:grid;grid-template-columns:1fr 84px 1fr;align-items:stretch">
+      <div style="border:1px solid rgba(255,255,255,.1);padding:32px 30px;background:#0A111C">
+        <div style="font:500 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#8B6B6B;margin-bottom:22px">Desafíos</div>
+        <div style="display:flex;flex-direction:column;gap:16px;font:400 15px/1.55 'IBM Plex Sans',sans-serif;color:#8494A8">
+          <div style="display:flex;gap:12px"><span style="color:#54677E;font-family:'IBM Plex Mono',monospace">—</span>Tu equipo pierde tiempo en tareas repetitivas.</div>
+          <div style="display:flex;gap:12px"><span style="color:#54677E;font-family:'IBM Plex Mono',monospace">—</span>Existen procesos manuales que podrían automatizarse.</div>
+          <div style="display:flex;gap:12px"><span style="color:#54677E;font-family:'IBM Plex Mono',monospace">—</span>Tus procesos tecnológicos necesitan modernizarse.</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;position:relative">
+        <div style="position:absolute;left:0;right:0;height:1px;background-image:repeating-linear-gradient(90deg,rgba(69,199,255,.6) 0 6px,transparent 6px 14px);background-size:14px 1px;animation:slide14 .8s linear infinite"></div>
+        <div style="position:relative;width:38px;height:38px;border-radius:50%;border:1px solid rgba(69,199,255,.5);background:#080D16;display:flex;align-items:center;justify-content:center;font:500 14px/1 'IBM Plex Mono',monospace;color:#45C7FF">→</div>
+      </div>
+      <div style="border:1px solid rgba(69,199,255,.3);padding:32px 30px;background:linear-gradient(180deg,rgba(69,199,255,.09),rgba(69,199,255,.02))">
+        <div style="font:500 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#45C7FF;margin-bottom:22px">Qué hacemos</div>
+        <div style="display:flex;flex-direction:column;gap:16px;font:400 15px/1.55 'IBM Plex Sans',sans-serif;color:#C6D4E2">
+          <div style="display:flex;gap:12px"><span style="color:#45C7FF;font-family:'IBM Plex Mono',monospace">+</span><span><strong style="font-weight:600">Levantamiento de procesos.</strong> Analizamos el flujo actual antes de automatizar.</span></div>
+          <div style="display:flex;gap:12px"><span style="color:#45C7FF;font-family:'IBM Plex Mono',monospace">+</span><span><strong style="font-weight:600">Integraciones y APIs.</strong> Conectamos herramientas para que el trabajo fluya mejor.</span></div>
+          <div style="display:flex;gap:12px"><span style="color:#45C7FF;font-family:'IBM Plex Mono',monospace">+</span><span><strong style="font-weight:600">Flujos de aprobación.</strong> Ordenamos pasos y responsabilidades para ganar trazabilidad.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="contacto" style="background:#0B1420;border-top:1px solid rgba(255,255,255,.07)">
+    <div style="max-width:1280px;margin:0 auto;padding:88px 48px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start">
+        <div>
+          <div style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#45C7FF;margin-bottom:18px">Contacto</div>
+          <h2 style="margin:0 0 18px;font:800 36px/1.07 Archivo,sans-serif;letter-spacing:-.03em;color:#EAF1F8;text-wrap:pretty">Cuéntanos qué proceso quieres mejorar o qué desafío de IA quieres resolver.</h2>
+          <p style="margin:0 0 32px;font:400 15.5px/1.65 'IBM Plex Sans',sans-serif;color:#8FA0B4;max-width:38em;text-wrap:pretty">Revisaremos tu necesidad para determinar si podemos ayudarte directamente o si requiere capacidades adicionales.</p>
+          <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:24px;display:flex;flex-direction:column;gap:14px;font:400 13.5px/1.5 'IBM Plex Mono',monospace">
+            <a href="mailto:contacto@nexera.cl" style="transition:transform .25s;display:inline-block;align-self:flex-start" style-hover="transform:translateX(4px)">contacto@nexera.cl</a>
+            <a href="https://wa.me/56954009251" style="display:inline-flex;align-items:center;gap:9px;align-self:flex-start;transition:transform .25s" style-hover="transform:translateX(4px)">Escríbenos por WhatsApp <span style="color:#54677E">→</span></a>
+            <span style="color:#7E8FA3">Santiago, Chile · Atención directa</span>
+          </div>
+        </div>
+        <div style="border:1px solid rgba(255,255,255,.12);background:#080D16;padding:36px 34px">
+          <div style="display:flex;align-items:center;justify-content:space-between;font:500 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#54677E;margin-bottom:12px">
+            <span>{{ fLabel }}</span><span>{{ fPct }}</span>
+          </div>
+          <div style="height:2px;background:rgba(255,255,255,.1);margin-bottom:32px"><div style="height:2px;background:#45C7FF;transition:width .5s cubic-bezier(.2,.8,.2,1);width:{{ fWidth }}"></div></div>
+
+          <sc-if value="{{ f1 }}" hint-placeholder-val="{{ true }}">
+            <div style="animation:fadein .4s both">
+              <h3 style="margin:0 0 22px;font:700 22px/1.25 Archivo,sans-serif;color:#EAF1F8">Tamaño aproximado de la empresa</h3>
+              <div style="display:flex;flex-wrap:wrap;gap:10px">
+                <button type="button" onClick="{{ pick }}" style="background:transparent;border:1px solid rgba(255,255,255,.16);color:#8494A8;padding:12px 18px;border-radius:3px;font:400 13.5px/1 'IBM Plex Sans',sans-serif;cursor:pointer;transition:all .25s">1–10</button>
+                <button type="button" onClick="{{ pick }}" style="background:transparent;border:1px solid rgba(255,255,255,.16);color:#8494A8;padding:12px 18px;border-radius:3px;font:400 13.5px/1 'IBM Plex Sans',sans-serif;cursor:pointer;transition:all .25s">11–50</button>
+                <button type="button" onClick="{{ pick }}" style="background:transparent;border:1px solid rgba(255,255,255,.16);color:#8494A8;padding:12px 18px;border-radius:3px;font:400 13.5px/1 'IBM Plex Sans',sans-serif;cursor:pointer;transition:all .25s">51–200</button>
+                <button type="button" onClick="{{ pick }}" style="background:transparent;border:1px solid rgba(255,255,255,.16);color:#8494A8;padding:12px 18px;border-radius:3px;font:400 13.5px/1 'IBM Plex Sans',sans-serif;cursor:pointer;transition:all .25s">+200</button>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ f2 }}" hint-placeholder-val="{{ false }}">
+            <div style="animation:fadein .4s both">
+              <h3 style="margin:0 0 22px;font:700 22px/1.25 Archivo,sans-serif;color:#EAF1F8">Servicio de interés</h3>
+              <div style="display:flex;flex-wrap:wrap;gap:10px">
+                <button type="button" onClick="{{ pick }}" style="background:transparent;border:1px solid rgba(255,255,255,.16);color:#8494A8;padding:12px 18px;border-radius:3px;font:400 13.5px/1 'IBM Plex Sans',sans-serif;cursor:pointer;transition:all .25s">Capacitación en IA</button>
+                <button type="button" onClick="{{ pick }}" style="background:transparent;border:1px solid rgba(255,255,255,.16);color:#8494A8;padding:12px 18px;border-radius:3px;font:400 13.5px/1 'IBM Plex Sans',sans-serif;cursor:pointer;transition:all .25s">Consultoría de IA</button>
+                <button type="button" onClick="{{ pick }}" style="background:transparent;border:1px solid rgba(255,255,255,.16);color:#8494A8;padding:12px 18px;border-radius:3px;font:400 13.5px/1 'IBM Plex Sans',sans-serif;cursor:pointer;transition:all .25s">Automatización de procesos</button>
+                <button type="button" onClick="{{ pick }}" style="background:transparent;border:1px solid rgba(255,255,255,.16);color:#8494A8;padding:12px 18px;border-radius:3px;font:400 13.5px/1 'IBM Plex Sans',sans-serif;cursor:pointer;transition:all .25s">Consultoría tecnológica</button>
+                <button type="button" onClick="{{ pick }}" style="background:transparent;border:1px solid rgba(255,255,255,.16);color:#8494A8;padding:12px 18px;border-radius:3px;font:400 13.5px/1 'IBM Plex Sans',sans-serif;cursor:pointer;transition:all .25s">Calidad y DevOps</button>
+                <button type="button" onClick="{{ pick }}" style="background:transparent;border:1px solid rgba(255,255,255,.16);color:#8494A8;padding:12px 18px;border-radius:3px;font:400 13.5px/1 'IBM Plex Sans',sans-serif;cursor:pointer;transition:all .25s">Piloto o solución personalizada</button>
+                <button type="button" onClick="{{ pick }}" style="background:transparent;border:1px solid rgba(255,255,255,.16);color:#8494A8;padding:12px 18px;border-radius:3px;font:400 13.5px/1 'IBM Plex Sans',sans-serif;cursor:pointer;transition:all .25s">Otro</button>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ f3 }}" hint-placeholder-val="{{ false }}">
+            <div style="animation:fadein .4s both">
+              <h3 style="margin:0 0 22px;font:700 22px/1.25 Archivo,sans-serif;color:#EAF1F8">Tus datos y el desafío</h3>
+              <div style="display:flex;flex-direction:column;gap:20px">
+                <input type="text" placeholder="Nombre" style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.18);padding:10px 0;font:400 15px/1.4 'IBM Plex Sans',sans-serif;color:#EAF1F8;outline:none;transition:border-color .3s" style-focus="border-bottom-color:#45C7FF">
+                <input type="text" placeholder="Empresa" style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.18);padding:10px 0;font:400 15px/1.4 'IBM Plex Sans',sans-serif;color:#EAF1F8;outline:none;transition:border-color .3s" style-focus="border-bottom-color:#45C7FF">
+                <input type="email" placeholder="Correo" style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.18);padding:10px 0;font:400 15px/1.4 'IBM Plex Sans',sans-serif;color:#EAF1F8;outline:none;transition:border-color .3s" style-focus="border-bottom-color:#45C7FF">
+                <input type="tel" placeholder="Teléfono opcional" style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.18);padding:10px 0;font:400 15px/1.4 'IBM Plex Sans',sans-serif;color:#EAF1F8;outline:none;transition:border-color .3s" style-focus="border-bottom-color:#45C7FF">
+                <textarea rows="2" placeholder="Descripción del desafío" style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.18);padding:10px 0;font:400 15px/1.5 'IBM Plex Sans',sans-serif;color:#EAF1F8;outline:none;resize:none;transition:border-color .3s" style-focus="border-bottom-color:#45C7FF"></textarea>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+            <div style="animation:fadein .4s both;padding:24px 0">
+              <div style="width:40px;height:40px;border-radius:50%;border:1px solid #45C7FF;display:flex;align-items:center;justify-content:center;color:#45C7FF;font:500 16px/1 'IBM Plex Mono',monospace;margin-bottom:20px">✓</div>
+              <h3 style="margin:0;font:700 21px/1.35 Archivo,sans-serif;color:#EAF1F8">Revisaremos tu necesidad para determinar si podemos ayudarte directamente o si requiere capacidades adicionales.</h3>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ fNav }}" hint-placeholder-val="{{ true }}">
+            <div style="margin-top:34px;display:flex;align-items:center;justify-content:space-between">
+              <button type="button" onClick="{{ fBack }}" style="background:transparent;border:0;color:#54677E;font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;padding:12px 0;transition:color .25s" style-hover="color:#8FA0B4">← Atrás</button>
+              <button type="button" onClick="{{ fNext }}" style="display:inline-flex;align-items:center;gap:10px;background:#45C7FF;color:#04121C;border:0;padding:15px 24px;border-radius:3px;font:600 12.5px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:transform .25s,box-shadow .25s" style-hover="transform:translateY(-2px);box-shadow:0 12px 30px -12px rgba(69,199,255,.7)">{{ fCta }} <span>→</span></button>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="position:relative;background:#080D16;border-top:1px solid rgba(255,255,255,.08);overflow:hidden">
+    <div style="position:absolute;top:-1px;left:0;right:0;height:1px;overflow:hidden"><span style="display:block;width:20%;height:100%;background:linear-gradient(90deg,transparent,#45C7FF,transparent);animation:travel 6s linear infinite"></span></div>
+    <div style="position:relative;max-width:1280px;margin:0 auto;padding:64px 48px 32px">
+      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:36px">
+        <div>
+          <div style="font:800 24px/1 Archivo,sans-serif;letter-spacing:.12em;background:linear-gradient(90deg,#45C7FF,#C86BFF);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:16px">NEXERA</div>
+          <p style="margin:0 0 18px;font:400 13.5px/1.6 'IBM Plex Sans',sans-serif;color:#7E8FA3;max-width:24em">Boutique tecnológica chilena especializada en IA, capacitación, automatización y modernización para pymes.</p>
+          <div style="display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(69,199,255,.3);padding:9px 14px;border-radius:99px;font:500 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#9FB6CC"><span style="width:6px;height:6px;border-radius:50%;background:#45C7FF;animation:glow 2.2s ease-in-out infinite"></span>Atención directa</div>
+        </div>
+        <div>
+          <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#54677E;margin-bottom:16px">Servicios</div>
+          <div style="display:flex;flex-direction:column;gap:10px;font:400 13.5px/1.4 'IBM Plex Sans',sans-serif">
+            <a href="#servicios" onClick="{{ go1 }}" style="color:#93A4B8;transition:transform .25s,color .25s" style-hover="color:#45C7FF;transform:translateX(4px)">Capacitación en IA</a>
+            <a href="#servicios" onClick="{{ go0 }}" style="color:#93A4B8;transition:transform .25s,color .25s" style-hover="color:#45C7FF;transform:translateX(4px)">Inteligencia Artificial</a>
+            <a href="#automatizacion" style="color:#93A4B8;transition:transform .25s,color .25s" style-hover="color:#45C7FF;transform:translateX(4px)">Automatización</a>
+            <a href="#servicios" onClick="{{ go3 }}" style="color:#93A4B8;transition:transform .25s,color .25s" style-hover="color:#45C7FF;transform:translateX(4px)">Consultoría tecnológica</a>
+          </div>
+        </div>
+        <div>
+          <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#54677E;margin-bottom:16px">Nexera</div>
+          <div style="display:flex;flex-direction:column;gap:10px;font:400 13.5px/1.4 'IBM Plex Sans',sans-serif">
+            <a href="#servicios" onClick="{{ go3 }}" style="color:#93A4B8;transition:transform .25s,color .25s" style-hover="color:#45C7FF;transform:translateX(4px)">Innovación</a>
+            <a href="#proceso" style="color:#93A4B8;transition:transform .25s,color .25s" style-hover="color:#45C7FF;transform:translateX(4px)">Nosotros</a>
+            <a href="#contacto" style="color:#93A4B8;transition:transform .25s,color .25s" style-hover="color:#45C7FF;transform:translateX(4px)">Contacto</a>
+          </div>
+        </div>
+        <div>
+          <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#54677E;margin-bottom:16px">Contacto</div>
+          <div style="display:flex;flex-direction:column;gap:10px;font:400 13px/1.5 'IBM Plex Mono',monospace;color:#93A4B8">
+            <a href="mailto:contacto@nexera.cl" style="color:#93A4B8">contacto@nexera.cl</a>
+            <a href="https://wa.me/56954009251" style="color:#93A4B8">WhatsApp</a>
+            <span>Santiago, Chile</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:44px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;font:400 11.5px/1 'IBM Plex Mono',monospace;color:#4E5F74">
+        <span>© 2026 Nexera</span><span>Santiago, Chile · Atención directa</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;autoFlow&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Motion&quot;},&quot;flowSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:2600,&quot;min&quot;:1200,&quot;max&quot;:5000,&quot;step&quot;:200,&quot;unit&quot;:&quot;ms&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Motion&quot;}}">
+class Component extends DCLogic {
+  state = { step: 0, svc: 0, f: 1, sent: false };
+
+  componentDidMount() { this.startFlow(); }
+  componentDidUpdate(prev) {
+    if (prev.autoFlow !== this.props.autoFlow || prev.flowSpeed !== this.props.flowSpeed) this.startFlow();
+  }
+  componentWillUnmount() { clearInterval(this.iv); }
+
+  startFlow() {
+    clearInterval(this.iv);
+    if (this.props.autoFlow === false) return;
+    const ms = this.props.flowSpeed || 2600;
+    this.iv = setInterval(() => this.setState(s => ({ step: (s.step + 1) % 5 })), ms);
+  }
+
+  pick = (e) => {
+    const el = e.currentTarget, sibs = el.parentElement ? el.parentElement.children : [];
+    for (const c of sibs) { c.style.background = 'transparent'; c.style.borderColor = 'rgba(255,255,255,.16)'; c.style.color = '#8494A8'; }
+    el.style.background = 'rgba(69,199,255,.12)';
+    el.style.borderColor = '#45C7FF';
+    el.style.color = '#DCEEFB';
+  };
+
+  renderVals() {
+    const steps = [
+      { num: '01', title: 'Entendemos', desc: 'Conversamos sobre la realidad, los problemas y los objetivos de la empresa.' },
+      { num: '02', title: 'Priorizamos', desc: 'Definimos qué iniciativas generan más valor y cuáles conviene dejar para después.' },
+      { num: '03', title: 'Diseñamos e implementamos', desc: 'Construimos, configuramos o integramos una solución proporcional al desafío.' },
+      { num: '04', title: 'Acompañamos', desc: 'Revisamos resultados, capacitamos y definimos los siguientes pasos.' },
+      { num: '05', title: 'Evolucionamos', desc: 'Desplegamos mejoras cuando el negocio y la madurez lo permiten.' }
+    ];
+    const svcs = [
+      { num: '01', title: 'Inteligencia Artificial aplicada', desc: 'Ayudamos a identificar oportunidades concretas para usar IA dentro de la empresa, con iniciativas viables, seguras y alineadas al negocio.', chips: ['Diagnóstico de oportunidades de IA', 'Asistentes internos y agentes de IA', 'Gestión del conocimiento y RAG', 'Pilotos controlados', 'Gobierno y uso responsable'] },
+      { num: '02', title: 'Capacitación en Inteligencia Artificial', desc: 'Preparamos a gerencias, jefaturas y equipos para comprender y usar IA de forma práctica, segura y responsable.', chips: ['Gerencias y líderes', 'Equipos de trabajo', 'Equipos tecnológicos', 'Talleres personalizados'] },
+      { num: '03', title: 'Automatización de procesos', desc: 'Analizamos procesos manuales y diseñamos automatizaciones proporcionales a las necesidades de cada empresa.', chips: ['Levantamiento de procesos', 'Automatización documental', 'Integraciones y APIs', 'Flujos de aprobación'] },
+      { num: '04', title: 'Consultoría y modernización tecnológica', desc: 'Acompañamos decisiones tecnológicas con mirada experta, priorizando lo que genera más valor y mejor ajuste al negocio.', chips: ['Estrategia', 'Ejecución', 'Medición'] },
+      { num: '05', title: 'Calidad de software y DevOps', desc: 'Aplicamos experiencia en calidad, automatización y DevOps para mejorar estabilidad, trazabilidad y capacidad de evolución.', chips: ['Estabilidad', 'Trazabilidad', 'Capacidad de evolución'] }
+    ];
+    const st = steps[this.state.step], sv = svcs[this.state.svc], f = this.state.f;
+    const gs = (i) => () => this.setState({ svc: i });
+
+    return {
+      pick: this.pick,
+      go0: gs(0), go1: gs(1), go2: gs(2), go3: gs(3), go4: gs(4),
+
+      nodes: steps.map((s, i) => ({
+        num: s.num, title: s.title, hasLine: i < 4,
+        active: this.state.step === i, idle: this.state.step !== i,
+        go: () => { clearInterval(this.iv); this.setState({ step: i }); }
+      })),
+      stepNum: st.num, stepTitle: st.title, stepDesc: st.desc,
+
+      tabs: svcs.map((s, i) => ({
+        num: s.num, title: s.title,
+        active: this.state.svc === i, idle: this.state.svc !== i,
+        go: () => this.setState({ svc: i })
+      })),
+      tabTitle: sv.title, tabDesc: sv.desc, tabChips: sv.chips,
+
+      f1: f === 1 && !this.state.sent, f2: f === 2 && !this.state.sent, f3: f === 3 && !this.state.sent,
+      fNav: !this.state.sent, sent: this.state.sent,
+      fLabel: 'Paso ' + f + ' de 3', fPct: Math.round((f / 3) * 100) + '%', fWidth: Math.round((f / 3) * 100) + '%',
+      fCta: f === 3 ? 'Enviar consulta' : 'Continuar',
+      fNext: () => this.setState(s => (s.f === 3 ? { sent: true } : { f: s.f + 1 })),
+      fBack: () => this.setState(s => ({ f: Math.max(1, s.f - 1) }))
+    };
+  }
+}
+</script>
+</body>
+</html>
+
