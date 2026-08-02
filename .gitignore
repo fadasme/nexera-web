@@ -17,7 +17,14 @@ node_modules/
 # so
 .DS_Store
 
-
 .serena/
-
 .superpowers/
+
+# legacy static outputs
+outputs/.DS_Store
+outputs/*.md
+outputs/*.html
+outputs/*.png
+outputs/*.zip
+outputs/*.tar.gz
+work/
