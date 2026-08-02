@@ -4,7 +4,7 @@
 
 ## Objetivo
 
-Landing de Nexera en Astro 5 que porta fielmente el mockup `Nexera Landing.dc.html`
+Landing de Nexera en Astro 7 que porta fielmente el mockup `Nexera Landing.dc.html`
 (Claude Design, proyecto `a2a37776`) y soporta **dos destinos de deploy desde el mismo
 código**: VPS (Node + MySQL) o Cloudflare (Workers + D1), elegidos por configuración
 (`npm run setup`), nunca reescribiendo código. Migra una landing PHP+MySQL existente.
@@ -209,9 +209,10 @@ interfaz exportada por `src/lib/db/types.ts` y `src/lib/mail/types.ts`.
 
 ### Trampa 2 — entorno unificado
 
-`src/lib/env.ts`: `getEnv(locals): Record<string, string | undefined>` — en Workers devuelve
-`locals.runtime.env`; en Node `process.env`. Nada más toca env de servidor. `PUBLIC_*`
-solo vía `import.meta.env` (inline de Vite, idéntico en ambos).
+`src/lib/env.ts`: `getEnv(locals): Record<string, unknown>` usa un alias target-aware:
+`env` de `cloudflare:workers` en Workers y `process.env` en Node. Astro 7 eliminó
+`locals.runtime.env`. Nada más toca env de servidor. `PUBLIC_*` solo vía
+`import.meta.env` (inline de Vite, idéntico en ambos).
 
 ### Trampa 3 — dos dialectos SQL
 

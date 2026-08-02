@@ -11,5 +11,5 @@ export interface NuevoContacto {
   user_agent?: string | null;
 }
 
-/** Entorno de servidor: process.env (node) o locals.runtime.env (cloudflare). */
+/** Entorno de servidor: process.env (Node) o cloudflare:workers env (Workers). */
 export type DbEnv = Record<string, unknown>;

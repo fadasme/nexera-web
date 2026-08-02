@@ -11,6 +11,7 @@ export const prerender = false;
 
 const MIN_MS = 3000; // time-trap: envíos más rápidos se descartan
 const MAX_MS = 24 * 60 * 60 * 1000; // y formularios de más de 24 h también
+const MAX_BODY_BYTES = 64 * 1024;
 
 function ok(request: Request): Response {
   if (request.headers.get('accept')?.includes('application/json')) {
@@ -25,13 +26,20 @@ function fail(request: Request, code: ErrorCode, status: number): Response {
   }
   return new Response(null, {
     status: 303,
-    headers: { Location: `/?e=${code}#contacto` },
+    headers: { Location: `/?e=${code}#e-${code}` },
   });
 }
 
 export const POST: APIRoute = async (ctx) => {
   const { request } = ctx;
   const env = getEnv(ctx.locals);
+  const contentLength = request.headers.get('content-length');
+  if (
+    contentLength !== null &&
+    (!/^\d+$/.test(contentLength) || Number(contentLength) > MAX_BODY_BYTES)
+  ) {
+    return fail(request, 'invalido', 413);
+  }
 
   let form: FormData;
   try {
@@ -70,7 +78,8 @@ export const POST: APIRoute = async (ctx) => {
   if (!parsed.success) return fail(request, firstErrorCode(parsed.error), 400);
 
   const ip = getClientIp(request, () => ctx.clientAddress);
-  const ipHash = ip ? await sha256Hex(ip + (envStr(env, 'IP_HASH_SALT') ?? '')) : null;
+  const ipSalt = envStr(env, 'IP_HASH_SALT');
+  const ipHash = ip && ipSalt ? await sha256Hex(ip + ipSalt) : null;
 
   // 4 · Captcha (si está configurado; con 'none' no se valida nada).
   const captchaToken = get('cf-turnstile-response') || get('g-recaptcha-response') || null;

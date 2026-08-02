@@ -2,11 +2,11 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Landing Astro 5 fiel al mockup `_design/Nexera Landing.dc.html`, con formulario→DB→correo, analítica y SEO, desplegable en VPS (Node+MySQL) o Cloudflare (Workers+D1) desde el mismo código.
+**Goal:** Landing Astro 7 fiel al mockup `_design/Nexera Landing.dc.html`, con formulario→DB→correo, analítica y SEO, desplegable en VPS (Node+MySQL) o Cloudflare (Workers+D1) desde el mismo código.
 
 **Architecture:** `output:'static'` con un único endpoint SSR (`/api/contacto`). El target se decide en build (`DEPLOY_TARGET`) e intercambia adapter y alias de Vite (`@driver/db`, `@driver/smtp`) para que el driver descartado jamás entre al bundle. Env unificado vía `getEnv(locals)`. Schemas SQL gemelos tras la fachada `saveContacto`/`countRecentByIpHash`.
 
-**Tech Stack:** Astro 5 + TS strict · @astrojs/node|cloudflare · @astrojs/sitemap · zod · mysql2 (solo node) · nodemailer (solo node) · Resend HTTP · @fontsource (Archivo, IBM Plex Sans/Mono) · wrangler 4.
+**Tech Stack:** Astro 7 + TS strict · @astrojs/node|cloudflare · @astrojs/sitemap · zod · mysql2 (solo node) · nodemailer (solo node) · Resend HTTP · @fontsource (Archivo, IBM Plex Sans/Mono) · wrangler 4.
 
 **Fuente de verdad visual:** `_design/Nexera Landing.dc.html` (raw) + mapa de tokens en `docs/superpowers/specs/2026-07-30-nexera-landing-design.md` §1. El implementador copia valores exactos desde ahí; este plan no duplica los 378 líneas de markup.
 
@@ -43,19 +43,20 @@ HOST PORT   (solo runtime node)
 
 **Files:** Create `package.json`, `tsconfig.json`, `astro.config.mjs`, `src/env.d.ts`, `.gitignore`, `.env.example`, `public/favicon.svg`, `src/assets/nexera-hero.png`, `src/assets/nexera-logo.png`, `public/og.png` (1200×630 desde el hero, generado una vez con sharp).
 
-**Interfaces (produce):** alias `@driver/db`→`src/lib/db/db.{mysql|d1}.ts`, `@driver/smtp`→`src/lib/mail/smtp.{real|stub}.ts`, alias `@/`→`src/`; scripts npm `dev`, `build`, `build:node`, `build:cf`, `check`, `preview`, `setup`, `migrate:php`, `deploy`.
+**Interfaces (produce):** aliases `@driver/db`→`src/lib/db/db.{mysql|d1}.ts`, `@driver/smtp`→`src/lib/mail/smtp.{real|stub}.ts`, `@runtime/env` e `@runtime/ip`→variantes `{node|cloudflare}`, y `@/`→`src/`; scripts npm `dev`, `dev:cf`, `build`, `build:node`, `build:cf`, `check`, `preview`, `setup`, `migrate:php`, `deploy`.
 
-- [ ] Step 1: `package.json` — deps: astro ^5, @astrojs/node ^9, @astrojs/cloudflare ^12, @astrojs/sitemap ^3, zod ^3.24, mysql2 ^3, nodemailer ^7, @fontsource/{archivo,ibm-plex-sans,ibm-plex-mono}; dev: @astrojs/check, typescript ^5, wrangler ^4, @types/node, @types/nodemailer, @cloudflare/workers-types, sharp. `engines.node >=20`.
+- [ ] Step 1: `package.json` — deps: astro ^7, @astrojs/node ^11, @astrojs/cloudflare ^14, @astrojs/sitemap ^3, zod ^3.24, mysql2 ^3, nodemailer ^9, @fontsource/{archivo,ibm-plex-sans,ibm-plex-mono}; dev: @astrojs/check, typescript ^5, wrangler ^4, @types/node, @types/nodemailer, sharp ^0.35. `engines.node >=22.12`.
 - [ ] Step 2: `astro.config.mjs` — `loadEnv` de Vite para leer `.env` (`DEPLOY_TARGET`, `PUBLIC_SITE_URL`); adapter condicional:
 
 ```js
 const target = process.env.DEPLOY_TARGET ?? env.DEPLOY_TARGET ?? 'node';
 adapter: target === 'cloudflare'
-  ? cloudflare({ platformProxy: { enabled: true } })
+  ? cloudflare({ imageService: 'compile' })
   : node({ mode: 'standalone' }),
 vite: { resolve: { alias: {
   '@driver/db': fileURLToPath(new URL(target === 'cloudflare' ? './src/lib/db/db.d1.ts' : './src/lib/db/db.mysql.ts', import.meta.url)),
   '@driver/smtp': fileURLToPath(new URL(target === 'cloudflare' ? './src/lib/mail/smtp.stub.ts' : './src/lib/mail/smtp.real.ts', import.meta.url)),
+  '@runtime/env': fileURLToPath(new URL(target === 'cloudflare' ? './src/lib/runtime/env.cloudflare.ts' : './src/lib/runtime/env.node.ts', import.meta.url)),
   '@': fileURLToPath(new URL('./src', import.meta.url)),
 } } },
 site: PUBLIC_SITE_URL || 'https://nexera.cl', output: 'static', integrations: [sitemap()]

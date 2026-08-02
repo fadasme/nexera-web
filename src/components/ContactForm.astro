@@ -1,10 +1,12 @@
 ---
 import { TAMANOS, SERVICIOS, LIMITES } from '@/lib/schema';
+import { site } from '@/config/site';
 
 /**
  * Un solo <form> real con los 3 pasos del wizard del mockup como fieldsets.
- *  - Con JS   → wizard: un paso a la vez, progreso, Atrás/Continuar, fetch.
- *  - Sin JS   → los 3 fieldsets apilados + submit nativo → 303 /gracias.
+ *  - Con JS → wizard: un paso a la vez, progreso, Atrás/Continuar, fetch.
+ *  - Sin JS y sin captcha → fieldsets apilados + submit nativo → 303 /gracias.
+ *  - Sin JS y con captcha → alternativa de correo; nunca se omite el captcha.
  * Tamaño y servicio son radios estilizados (:checked funciona sin JS).
  */
 const captchaProvider = import.meta.env.PUBLIC_CAPTCHA_PROVIDER ?? 'none';
@@ -141,9 +143,16 @@ const ERRORES: Record<string, string> = {
     </div>
 
     <noscript>
-      <button type="submit" class="btn enviar-nojs">
-        Enviar consulta <span aria-hidden="true">→</span>
-      </button>
+      {conCaptcha ? (
+        <p class="nojs-captcha">
+          El captcha requiere JavaScript. Actívalo para enviar el formulario o escríbenos a
+          {' '}<a href={`mailto:${site.email}`}>{site.email}</a>.
+        </p>
+      ) : (
+        <button type="submit" class="btn enviar-nojs">
+          Enviar consulta <span aria-hidden="true">→</span>
+        </button>
+      )}
     </noscript>
   </form>
 
@@ -365,6 +374,18 @@ const ERRORES: Record<string, string> = {
 
   .enviar-nojs {
     margin-top: 30px;
+  }
+
+  .nojs-captcha {
+    margin: 30px 0 0;
+    padding: 12px 14px;
+    border: 1px solid rgba(69, 199, 255, 0.3);
+    color: var(--text-dim);
+    font: 400 13.5px/1.5 var(--font-sans);
+  }
+
+  .nojs-captcha a {
+    color: var(--accent);
   }
 
   .sent {

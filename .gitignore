@@ -7,9 +7,17 @@ node_modules/
 .env
 .env.bak
 .dev.vars
+.env.tmp-*
+.env.bak.tmp-*
+.dev.vars.tmp-*
 
 # cloudflare local
 .wrangler/
 
 # so
 .DS_Store
+
+
+.serena/
+
+.superpowers/

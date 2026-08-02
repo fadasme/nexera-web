@@ -16,13 +16,16 @@ export async function verifyCaptcha(
   ip?: string,
 ): Promise<boolean> {
   const provider = import.meta.env.PUBLIC_CAPTCHA_PROVIDER ?? 'none';
-  if (provider !== 'turnstile' && provider !== 'recaptcha') return true;
+  if (provider === 'none') return true;
+  if (provider !== 'turnstile' && provider !== 'recaptcha') {
+    console.error(`[captcha] provider desconocido: "${provider}"; envío rechazado`);
+    return false;
+  }
 
   const secret = envStr(env, 'CAPTCHA_SECRET');
   if (!secret) {
-    // Error de configuración: se loguea fuerte pero no se pierde el lead.
-    console.error('[captcha] provider configurado pero falta CAPTCHA_SECRET; envío aceptado');
-    return true;
+    console.error('[captcha] provider configurado pero falta CAPTCHA_SECRET; envío rechazado');
+    return false;
   }
   if (!token) return false;
 
@@ -30,7 +33,11 @@ export async function verifyCaptcha(
   if (ip) body.set('remoteip', ip);
 
   try {
-    const res = await fetch(ENDPOINTS[provider], { method: 'POST', body });
+    const res = await fetch(ENDPOINTS[provider], {
+      method: 'POST',
+      body,
+      signal: AbortSignal.timeout(5000),
+    });
     if (!res.ok) return false;
     const data = (await res.json()) as { success?: boolean };
     return data.success === true;

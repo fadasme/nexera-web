@@ -1,6 +1,6 @@
 /**
  * Router de correo por MAIL_PROVIDER: resend (HTTP, ambos targets),
- * smtp (@driver/smtp: nodemailer en node, stub en cloudflare), none.
+ * smtp (implementación seleccionada por target), none.
  */
 import { envStr, type Env } from '../env';
 import type { NuevoContacto } from '../db/types';

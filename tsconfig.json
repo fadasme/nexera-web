@@ -1,11 +1,12 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@driver/db": ["src/lib/db/db.mysql.ts"],
-      "@driver/smtp": ["src/lib/mail/smtp.real.ts"]
+      "@/*": ["./src/*"],
+      "@driver/db": ["./src/lib/db/db.mysql.ts"],
+      "@driver/smtp": ["./src/lib/mail/smtp.real.ts"],
+      "@runtime/env": ["./src/lib/runtime/env.node.ts"],
+      "@runtime/ip": ["./src/lib/runtime/ip.node.ts"]
     }
   },
   "exclude": ["dist", "node_modules", ".wrangler", "_design"]

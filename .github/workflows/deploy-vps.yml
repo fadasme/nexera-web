@@ -1,0 +1,80 @@
+name: Deploy VPS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-vps-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ vars.DEPLOY_TARGET == 'node' }}
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Node target
+        run: npm run build:node
+        env:
+          PUBLIC_SITE_URL: ${{ vars.PUBLIC_SITE_URL }}
+          PUBLIC_SITE_NAME: ${{ vars.PUBLIC_SITE_NAME }}
+          PUBLIC_BUSINESS_EMAIL: ${{ vars.PUBLIC_BUSINESS_EMAIL }}
+          PUBLIC_BUSINESS_PHONE: ${{ vars.PUBLIC_BUSINESS_PHONE }}
+          PUBLIC_BUSINESS_WHATSAPP: ${{ vars.PUBLIC_BUSINESS_WHATSAPP }}
+          PUBLIC_BUSINESS_STREET: ${{ vars.PUBLIC_BUSINESS_STREET }}
+          PUBLIC_BUSINESS_CITY: ${{ vars.PUBLIC_BUSINESS_CITY }}
+          PUBLIC_BUSINESS_REGION: ${{ vars.PUBLIC_BUSINESS_REGION }}
+          PUBLIC_BUSINESS_COUNTRY: ${{ vars.PUBLIC_BUSINESS_COUNTRY }}
+          PUBLIC_BUSINESS_SOCIAL: ${{ vars.PUBLIC_BUSINESS_SOCIAL }}
+          PUBLIC_ANALYTICS_PROVIDER: ${{ vars.PUBLIC_ANALYTICS_PROVIDER }}
+          PUBLIC_ANALYTICS_ID: ${{ vars.PUBLIC_ANALYTICS_ID }}
+          PUBLIC_ANALYTICS_SRC: ${{ vars.PUBLIC_ANALYTICS_SRC }}
+          PUBLIC_CAPTCHA_PROVIDER: ${{ vars.PUBLIC_CAPTCHA_PROVIDER }}
+          PUBLIC_CAPTCHA_SITE_KEY: ${{ vars.PUBLIC_CAPTCHA_SITE_KEY }}
+
+      - name: Prepare SSH
+        env:
+          VPS_SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          VPS_KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
+        run: |
+          umask 077
+          mkdir -p ~/.ssh
+          printf '%s\n' "$VPS_SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          printf '%s\n' "$VPS_KNOWN_HOSTS" > ~/.ssh/known_hosts
+
+      - name: Upload release
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+        run: |
+          mkdir release
+          cp package.json package-lock.json release/
+          cp -R dist release/dist
+          rsync -az --delete --exclude='.env' \
+            -e 'ssh -i ~/.ssh/id_ed25519' \
+            release/ "$VPS_USER@$VPS_HOST:/opt/nexera/"
+
+      - name: Install production dependencies and restart
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+        run: |
+          ssh -i ~/.ssh/id_ed25519 "$VPS_USER@$VPS_HOST" \
+            'cd /opt/nexera && npm ci --omit=dev && sudo systemctl restart nexera'

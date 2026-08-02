@@ -4,10 +4,11 @@
  * los defaults son los valores del mockup de Nexera.
  */
 const env = import.meta.env;
+const name = env.PUBLIC_SITE_NAME ?? 'Nexera';
 
 export const site = {
   url: env.PUBLIC_SITE_URL ?? 'https://nexera.cl',
-  name: env.PUBLIC_SITE_NAME ?? 'Nexera',
+  name,
   email: env.PUBLIC_BUSINESS_EMAIL ?? 'contacto@nexera.cl',
   phone: env.PUBLIC_BUSINESS_PHONE ?? '+56 9 5400 9251',
   whatsapp: (env.PUBLIC_BUSINESS_WHATSAPP ?? '56954009251').replace(/\D/g, ''),
@@ -20,6 +21,7 @@ export const site = {
     .map((s) => s.trim())
     .filter(Boolean),
   tagline: 'Tecnología e Inteligencia Artificial para tu empresa',
+  seoTitle: `${name} | Inteligencia Artificial para empresas en Chile`,
   description:
     'Boutique tecnológica con atención directa, experiencia senior y soluciones adaptadas a la realidad de cada organización.',
 } as const;

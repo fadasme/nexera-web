@@ -1,8 +1,9 @@
 ---
 import { site } from '@/config/site';
 
-// LocalBusiness si hay dirección física (calle o ciudad); Organization si no.
-const hasAddress = Boolean(site.street || site.city);
+// LocalBusiness solo si se configuró una dirección física; ciudad por sí sola no basta.
+const hasAddress = Boolean(site.street.trim());
+const hasLocality = Boolean(site.city.trim() || site.region.trim() || site.country.trim());
 
 const ld: Record<string, unknown> = {
   '@context': 'https://schema.org',
@@ -15,13 +16,13 @@ const ld: Record<string, unknown> = {
   image: new URL('/og.png', site.url).href,
 };
 
-if (hasAddress) {
+if (hasAddress || hasLocality) {
   ld.address = {
     '@type': 'PostalAddress',
-    ...(site.street ? { streetAddress: site.street } : {}),
-    addressLocality: site.city,
-    addressRegion: site.region,
-    addressCountry: site.country,
+    ...(hasAddress ? { streetAddress: site.street.trim() } : {}),
+    ...(site.city.trim() ? { addressLocality: site.city.trim() } : {}),
+    ...(site.region.trim() ? { addressRegion: site.region.trim() } : {}),
+    ...(site.country.trim() ? { addressCountry: site.country.trim() } : {}),
   };
 }
 

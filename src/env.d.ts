@@ -22,16 +22,8 @@ interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
 
-declare namespace App {
-  interface Locals {
-    /**
-     * Presente solo en el target cloudflare (adapter @astrojs/cloudflare).
-     * Tipado a mano para no depender de tipos globales de Workers en el
-     * chequeo del target node.
-     */
-    runtime?: {
-      env: Record<string, unknown>;
-      ctx?: { waitUntil(promise: Promise<unknown>): void };
-    };
-  }
+// Tipado a mano: el chequeo se hace con los paths del target node, donde el
+// módulo virtual `cloudflare:workers` no existe.
+declare module 'cloudflare:workers' {
+  export const env: Record<string, unknown>;
 }
