@@ -1,0 +1,218 @@
+---
+import { Image } from 'astro:assets';
+import heroImg from '@/assets/nexera-hero.png';
+import logoImg from '@/assets/nexera-logo.png';
+import { site } from '@/config/site';
+
+const nodos = [
+  { title: 'IA', desc: 'aplicada a problemas reales', activo: true },
+  { title: 'Capacitación', desc: 'para gerencias y equipos', activo: false },
+  { title: 'Boutique', desc: 'atención directa y flexible', activo: false },
+];
+---
+
+<section id="top" class="hero">
+  <Image
+    src={heroImg}
+    alt="Operación tecnológica Nexera"
+    class="hero-img"
+    widths={[860, 1290, 1720]}
+    sizes="(max-width: 1024px) 100vw, 64vw"
+    format="webp"
+    quality={78}
+    loading="eager"
+    fetchpriority="high"
+  />
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <Image
+        src={logoImg}
+        alt={site.name}
+        class="hero-logo"
+        width={188}
+        densities={[1, 2]}
+        format="avif"
+        quality={50}
+        loading="eager"
+      />
+      <p class="eyebrow">{site.tagline}</p>
+      <h1>Tecnología e Inteligencia Artificial para hacer crecer tu empresa.</h1>
+      <p class="sub">{site.description}</p>
+      <div class="ctas">
+        <a href="#contacto" class="btn">Conversemos <span aria-hidden="true">→</span></a>
+        <a href="#servicios" class="btn-ghost">Conoce nuestros servicios</a>
+      </div>
+      <div class="diagrama" aria-hidden="false">
+        {
+          nodos.map((n, i) => (
+            <>
+              <div class="nodo">
+                <span class={`dot ${n.activo ? 'on' : ''}`} />
+                <span class="t">{n.title}</span>
+                <span class="d">{n.desc}</span>
+              </div>
+              {i < nodos.length - 1 && <div class="dash-line conector" />}
+            </>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .hero-img {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 64%;
+    height: 100%;
+    object-fit: cover;
+    animation: kb 26s ease-in-out infinite alternate;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      #080d16 0%,
+      #080d16 34%,
+      rgba(8, 13, 22, 0.72) 58%,
+      rgba(8, 13, 22, 0.35) 100%
+    );
+  }
+
+  .hero-inner {
+    position: relative;
+    padding-top: 88px;
+    padding-bottom: 80px;
+  }
+
+  .hero-copy {
+    max-width: 760px;
+    animation: rise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .hero-logo {
+    display: block;
+    width: 188px;
+    height: auto;
+    margin: 0 0 28px;
+  }
+
+  .hero-copy .eyebrow {
+    margin: 0 0 20px;
+  }
+
+  h1 {
+    margin: 0 0 22px;
+    font: 800 56px/1.03 var(--font-display);
+    letter-spacing: -0.035em;
+    color: var(--text-hi);
+    text-wrap: pretty;
+  }
+
+  .sub {
+    margin: 0 0 34px;
+    font: 400 16.5px/1.65 var(--font-sans);
+    color: var(--text-body-2);
+    max-width: 34em;
+    text-wrap: pretty;
+  }
+
+  .ctas {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 44px;
+    flex-wrap: wrap;
+  }
+
+  .diagrama {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .nodo {
+    flex: none;
+    display: block;
+  }
+
+  .dot {
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--bg-node);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    margin-bottom: 14px;
+  }
+
+  .dot.on {
+    background: var(--accent);
+    border: 0;
+    box-shadow: 0 0 0 5px rgba(69, 199, 255, 0.14);
+  }
+
+  .nodo .t {
+    display: block;
+    font: 700 14px/1.2 var(--font-display);
+    color: var(--text-hi);
+    margin-bottom: 6px;
+  }
+
+  .nodo .d {
+    display: block;
+    font: 400 12.5px/1.45 var(--font-sans);
+    color: var(--text-dim);
+    max-width: 12em;
+  }
+
+  .conector {
+    flex: 1;
+    margin: 6px 20px 0;
+  }
+
+  @media (max-width: 1024px) {
+    .hero-img {
+      width: 100%;
+      opacity: 0.45;
+    }
+
+    .hero-overlay {
+      background: linear-gradient(90deg, #080d16 0%, rgba(8, 13, 22, 0.82) 55%, rgba(8, 13, 22, 0.55) 100%);
+    }
+
+    h1 {
+      font-size: 44px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero-inner {
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
+
+    h1 {
+      font-size: 34px;
+      letter-spacing: -0.02em;
+    }
+
+    .diagrama {
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .conector {
+      display: none;
+    }
+  }
+</style>

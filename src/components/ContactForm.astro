@@ -1,0 +1,424 @@
+---
+import { TAMANOS, SERVICIOS, LIMITES } from '@/lib/schema';
+import { site } from '@/config/site';
+
+/**
+ * Un solo <form> real con los 3 pasos del wizard del mockup como fieldsets.
+ *  - Con JS → wizard: un paso a la vez, progreso, Atrás/Continuar, fetch.
+ *  - Sin JS y sin captcha → fieldsets apilados + submit nativo → 303 /gracias.
+ *  - Sin JS y con captcha → alternativa de correo; nunca se omite el captcha.
+ * Tamaño y servicio son radios estilizados (:checked funciona sin JS).
+ */
+const captchaProvider = import.meta.env.PUBLIC_CAPTCHA_PROVIDER ?? 'none';
+const captchaSiteKey = import.meta.env.PUBLIC_CAPTCHA_SITE_KEY ?? '';
+const conCaptcha =
+  (captchaProvider === 'turnstile' || captchaProvider === 'recaptcha') && captchaSiteKey !== '';
+
+const ERRORES: Record<string, string> = {
+  nombre: 'Revisa el nombre: necesita entre 2 y 120 caracteres.',
+  email: 'Revisa el correo: no parece válido.',
+  mensaje: 'Cuéntanos un poco más: el mensaje necesita al menos 10 caracteres.',
+  invalido: 'Revisa los datos del formulario e inténtalo de nuevo.',
+  captcha: 'No pudimos verificar el captcha. Inténtalo de nuevo.',
+  limite: 'Has enviado varias consultas seguidas. Espera un momento e inténtalo de nuevo.',
+  servidor: 'No pudimos guardar tu consulta. Inténtalo de nuevo o escríbenos por correo.',
+};
+---
+
+{conCaptcha && captchaProvider === 'turnstile' && (
+  <script is:inline defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
+)}
+{conCaptcha && captchaProvider === 'recaptcha' && (
+  <script is:inline defer src="https://www.google.com/recaptcha/api.js"></script>
+)}
+
+<div class="card" data-form-card>
+  <div class="head" data-form-head>
+    <span data-form-label>Paso 1 de 3</span>
+    <span data-form-pct>33%</span>
+  </div>
+  <div class="track" data-form-track><div class="bar" data-form-bar></div></div>
+
+  <div class="errores">
+    {Object.entries(ERRORES).map(([code, texto]) => (
+      <p class="error" id={`e-${code}`} data-error-code={code} role="alert">{texto}</p>
+    ))}
+  </div>
+
+  <form method="POST" action="/api/contacto" data-form>
+    <p class="hp" aria-hidden="true">
+      <label>
+        No llenes este campo
+        <input type="text" name="sitio_web" tabindex="-1" autocomplete="off" />
+      </label>
+    </p>
+    <input type="hidden" name="_ts" value="" data-ts />
+
+    <fieldset data-step="1" class="active">
+      <legend>Tamaño aproximado de la empresa</legend>
+      <div class="picks">
+        {TAMANOS.map((t) => (
+          <label class="pick">
+            <input type="radio" name="tamano_empresa" value={t} />
+            <span>{t.replace('-', '–')}</span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+
+    <fieldset data-step="2">
+      <legend>Servicio de interés</legend>
+      <div class="picks">
+        {SERVICIOS.map((s) => (
+          <label class="pick">
+            <input type="radio" name="servicio" value={s} />
+            <span>{s}</span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+
+    <fieldset data-step="3">
+      <legend>Tus datos y el desafío</legend>
+      <div class="campos">
+        <input
+          type="text"
+          name="nombre"
+          placeholder="Nombre"
+          required
+          minlength={LIMITES.nombreMin}
+          maxlength={LIMITES.nombreMax}
+          autocomplete="name"
+          aria-label="Nombre"
+        />
+        <input
+          type="text"
+          name="empresa"
+          placeholder="Empresa"
+          maxlength={LIMITES.empresaMax}
+          autocomplete="organization"
+          aria-label="Empresa"
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Correo"
+          required
+          maxlength={LIMITES.emailMax}
+          autocomplete="email"
+          aria-label="Correo"
+        />
+        <input
+          type="tel"
+          name="telefono"
+          placeholder="Teléfono opcional"
+          maxlength={LIMITES.telefonoMax}
+          pattern="[+0-9 ().\-]{6,40}"
+          autocomplete="tel"
+          aria-label="Teléfono opcional"
+        />
+        <textarea
+          name="mensaje"
+          rows="2"
+          placeholder="Descripción del desafío"
+          required
+          minlength={LIMITES.mensajeMin}
+          maxlength={LIMITES.mensajeMax}
+          aria-label="Descripción del desafío"></textarea>
+      </div>
+
+      {conCaptcha && captchaProvider === 'turnstile' && (
+        <div class="captcha cf-turnstile" data-sitekey={captchaSiteKey} data-theme="dark"></div>
+      )}
+      {conCaptcha && captchaProvider === 'recaptcha' && (
+        <div class="captcha g-recaptcha" data-sitekey={captchaSiteKey} data-theme="dark"></div>
+      )}
+    </fieldset>
+
+    <div class="nav" data-form-nav>
+      <button type="button" class="atras" data-back>← Atrás</button>
+      <button type="button" class="btn siguiente" data-next>
+        Continuar <span aria-hidden="true">→</span>
+      </button>
+    </div>
+
+    <noscript>
+      {conCaptcha ? (
+        <p class="nojs-captcha">
+          El captcha requiere JavaScript. Actívalo para enviar el formulario o escríbenos a
+          {' '}<a href={`mailto:${site.email}`}>{site.email}</a>.
+        </p>
+      ) : (
+        <button type="submit" class="btn enviar-nojs">
+          Enviar consulta <span aria-hidden="true">→</span>
+        </button>
+      )}
+    </noscript>
+  </form>
+
+  <div class="sent" data-sent hidden>
+    <div class="check" aria-hidden="true">✓</div>
+    <h3>
+      Revisaremos tu necesidad para determinar si podemos ayudarte directamente o si requiere
+      capacidades adicionales.
+    </h3>
+  </div>
+</div>
+
+<style>
+  .card {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: var(--bg);
+    padding: 36px 34px;
+  }
+
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font: 500 10.5px/1 var(--font-mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-bottom: 12px;
+  }
+
+  .track {
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    margin-bottom: 32px;
+  }
+
+  .bar {
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    width: 33%;
+  }
+
+  /* El progreso solo tiene sentido con el wizard (JS). */
+  :global(html.no-js) .head,
+  :global(html.no-js) .track {
+    display: none;
+  }
+
+  .errores {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .error {
+    display: none;
+    margin: 0 0 18px;
+    padding: 12px 14px;
+    border: 1px solid rgba(255, 110, 110, 0.35);
+    background: rgba(255, 110, 110, 0.08);
+    color: #ffb4b4;
+    font: 400 13.5px/1.5 var(--font-sans);
+  }
+
+  .error:target,
+  .error.show {
+    display: block;
+  }
+
+  .hp {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  form {
+    position: relative;
+  }
+
+  fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    display: none;
+  }
+
+  fieldset.active {
+    display: block;
+    animation: fadein 0.4s both;
+  }
+
+  :global(html.no-js) fieldset {
+    display: block;
+  }
+
+  :global(html.no-js) fieldset + fieldset {
+    margin-top: 34px;
+  }
+
+  legend {
+    padding: 0;
+    margin: 0 0 22px;
+    font: 700 22px/1.25 var(--font-display);
+    color: var(--text-hi);
+  }
+
+  .picks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .pick input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+
+  .pick span {
+    display: inline-block;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: var(--text-dim-2);
+    padding: 12px 18px;
+    border-radius: 3px;
+    font: 400 13.5px/1 var(--font-sans);
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+
+  .pick input:checked + span {
+    background: rgba(69, 199, 255, 0.12);
+    border-color: var(--accent);
+    color: var(--text-picked);
+  }
+
+  .pick input:focus-visible + span {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .campos {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .campos input,
+  .campos textarea {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 10px 0;
+    font: 400 15px/1.4 var(--font-sans);
+    color: var(--text-hi);
+    outline: none;
+    resize: none;
+    transition: border-color 0.3s;
+    border-radius: 0;
+  }
+
+  .campos textarea {
+    line-height: 1.5;
+  }
+
+  .campos input:focus,
+  .campos textarea:focus {
+    border-bottom-color: var(--accent);
+  }
+
+  .captcha {
+    margin-top: 24px;
+  }
+
+  .nav {
+    margin-top: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  :global(html.no-js) .nav {
+    display: none;
+  }
+
+  .atras {
+    background: transparent;
+    border: 0;
+    color: var(--text-mute);
+    font: 500 12px/1 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 12px 0;
+    transition: color 0.25s;
+  }
+
+  .atras:hover {
+    color: var(--text-dim);
+  }
+
+  .siguiente {
+    padding: 15px 24px;
+    font-size: 12.5px;
+    gap: 10px;
+  }
+
+  .siguiente:disabled {
+    opacity: 0.6;
+    cursor: wait;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .enviar-nojs {
+    margin-top: 30px;
+  }
+
+  .nojs-captcha {
+    margin: 30px 0 0;
+    padding: 12px 14px;
+    border: 1px solid rgba(69, 199, 255, 0.3);
+    color: var(--text-dim);
+    font: 400 13.5px/1.5 var(--font-sans);
+  }
+
+  .nojs-captcha a {
+    color: var(--accent);
+  }
+
+  .sent {
+    padding: 24px 0;
+    animation: fadein 0.4s both;
+  }
+
+  .sent[hidden] {
+    display: none;
+  }
+
+  .check {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font: 500 16px/1 var(--font-mono);
+    margin-bottom: 20px;
+  }
+
+  .sent h3 {
+    margin: 0;
+    font: 700 21px/1.35 var(--font-display);
+    color: var(--text-hi);
+  }
+
+  @media (max-width: 640px) {
+    .card {
+      padding: 26px 20px;
+    }
+  }
+</style>

@@ -1,0 +1,56 @@
+name: Deploy Cloudflare
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-cloudflare-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ vars.DEPLOY_TARGET == 'cloudflare' }}
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Cloudflare target
+        run: npm run build:cf
+        env:
+          PUBLIC_SITE_URL: ${{ vars.PUBLIC_SITE_URL }}
+          PUBLIC_SITE_NAME: ${{ vars.PUBLIC_SITE_NAME }}
+          PUBLIC_BUSINESS_EMAIL: ${{ vars.PUBLIC_BUSINESS_EMAIL }}
+          PUBLIC_BUSINESS_PHONE: ${{ vars.PUBLIC_BUSINESS_PHONE }}
+          PUBLIC_BUSINESS_WHATSAPP: ${{ vars.PUBLIC_BUSINESS_WHATSAPP }}
+          PUBLIC_BUSINESS_STREET: ${{ vars.PUBLIC_BUSINESS_STREET }}
+          PUBLIC_BUSINESS_CITY: ${{ vars.PUBLIC_BUSINESS_CITY }}
+          PUBLIC_BUSINESS_REGION: ${{ vars.PUBLIC_BUSINESS_REGION }}
+          PUBLIC_BUSINESS_COUNTRY: ${{ vars.PUBLIC_BUSINESS_COUNTRY }}
+          PUBLIC_BUSINESS_SOCIAL: ${{ vars.PUBLIC_BUSINESS_SOCIAL }}
+          PUBLIC_ANALYTICS_PROVIDER: ${{ vars.PUBLIC_ANALYTICS_PROVIDER }}
+          PUBLIC_ANALYTICS_ID: ${{ vars.PUBLIC_ANALYTICS_ID }}
+          PUBLIC_ANALYTICS_SRC: ${{ vars.PUBLIC_ANALYTICS_SRC }}
+          PUBLIC_CAPTCHA_PROVIDER: ${{ vars.PUBLIC_CAPTCHA_PROVIDER }}
+          PUBLIC_CAPTCHA_SITE_KEY: ${{ vars.PUBLIC_CAPTCHA_SITE_KEY }}
+
+      - name: Deploy Worker
+        run: npm run deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

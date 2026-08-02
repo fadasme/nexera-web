@@ -1,0 +1,229 @@
+---
+const desafios = [
+  'Tu equipo pierde tiempo en tareas repetitivas.',
+  'Existen procesos manuales que podrían automatizarse.',
+  'Tus procesos tecnológicos necesitan modernizarse.',
+];
+
+const acciones = [
+  {
+    strong: 'Levantamiento de procesos.',
+    text: 'Analizamos el flujo actual antes de automatizar.',
+  },
+  {
+    strong: 'Integraciones y APIs.',
+    text: 'Conectamos herramientas para que el trabajo fluya mejor.',
+  },
+  {
+    strong: 'Flujos de aprobación.',
+    text: 'Ordenamos pasos y responsabilidades para ganar trazabilidad.',
+  },
+];
+---
+
+<section id="automatizacion" class="container automatizacion">
+  <p class="eyebrow">Automatización</p>
+  <h2>Menos tareas repetitivas, más tiempo para el negocio.</h2>
+
+  <div class="grid">
+    <div class="panel desafios">
+      <p class="label warm">Desafíos</p>
+      <div class="lista">
+        {
+          desafios.map((d) => (
+            <div class="item">
+              <span class="marca" aria-hidden="true">
+                —
+              </span>
+              {d}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="puente" aria-hidden="true">
+      <div class="dash-line linea"></div>
+      <div class="flecha">→</div>
+    </div>
+
+    <div class="panel hacemos">
+      <p class="label accent">Qué hacemos</p>
+      <div class="lista clara">
+        {
+          acciones.map((a) => (
+            <div class="item">
+              <span class="marca mas" aria-hidden="true">
+                +
+              </span>
+              <span>
+                <strong>{a.strong}</strong> {a.text}
+              </span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .automatizacion {
+    padding-top: 84px;
+    padding-bottom: 84px;
+  }
+
+  .eyebrow {
+    margin: 0 0 16px;
+  }
+
+  h2 {
+    margin: 0 0 44px;
+    font: 800 40px/1.05 var(--font-display);
+    letter-spacing: -0.03em;
+    color: var(--text-hi);
+    text-wrap: pretty;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 84px 1fr;
+    align-items: stretch;
+  }
+
+  .panel {
+    padding: 32px 30px;
+  }
+
+  .desafios {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--bg-panel);
+  }
+
+  .hacemos {
+    border: 1px solid rgba(69, 199, 255, 0.3);
+    background: linear-gradient(180deg, rgba(69, 199, 255, 0.09), rgba(69, 199, 255, 0.02));
+  }
+
+  .label {
+    margin: 0 0 22px;
+    font: 500 10.5px/1 var(--font-mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .label.warm {
+    color: var(--text-warm);
+  }
+
+  .label.accent {
+    color: var(--accent);
+  }
+
+  .lista {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font: 400 15px/1.55 var(--font-sans);
+    color: var(--text-dim-2);
+  }
+
+  .lista.clara {
+    color: var(--text-onlist);
+  }
+
+  .item {
+    display: flex;
+    gap: 12px;
+  }
+
+  .marca {
+    color: var(--text-mute);
+    font-family: var(--font-mono);
+  }
+
+  .marca.mas {
+    color: var(--accent);
+  }
+
+  .item strong {
+    font-weight: 600;
+  }
+
+  .puente {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .linea {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background-image: repeating-linear-gradient(
+      90deg,
+      rgba(69, 199, 255, 0.6) 0 6px,
+      transparent 6px 14px
+    );
+    animation-duration: 0.8s;
+  }
+
+  .flecha {
+    position: relative;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(69, 199, 255, 0.5);
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: 500 14px/1 var(--font-mono);
+    color: var(--accent);
+  }
+
+  @media (max-width: 1024px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+
+    .puente {
+      height: 84px;
+    }
+
+    .linea {
+      left: 50%;
+      right: auto;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background-image: repeating-linear-gradient(
+        180deg,
+        rgba(69, 199, 255, 0.6) 0 6px,
+        transparent 6px 14px
+      );
+      background-size: 1px 14px;
+      animation: none;
+    }
+
+    .flecha {
+      transform: rotate(90deg);
+    }
+
+    h2 {
+      font-size: 32px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .automatizacion {
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
+
+    h2 {
+      font-size: 27px;
+    }
+  }
+</style>

@@ -1,0 +1,81 @@
+---
+// Nav sticky del mockup: blur, borde inferior y línea viajera.
+// Los links con data-goto-tab activan el tab de servicios correspondiente.
+---
+
+<header class="nav-wrap">
+  <div class="container nav">
+    <a href="#top" class="wordmark">NEXERA</a>
+    <nav class="links" aria-label="Principal">
+      <a href="#servicios">Servicios</a>
+      <a href="#servicios" data-goto-tab="1">Capacitación en IA</a>
+      <a href="#servicios" data-goto-tab="0">Inteligencia Artificial</a>
+      <a href="#automatizacion">Automatización</a>
+      <a href="#servicios" data-goto-tab="3">Innovación</a>
+      <a href="#proceso">Nosotros</a>
+      <a href="#contacto" class="cta">Contacto</a>
+    </nav>
+    <div class="travel-line nav-line"><span></span></div>
+  </div>
+</header>
+
+<style>
+  .nav-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(10, 17, 28, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .nav {
+    position: relative;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .links {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    font: 400 13px/1 var(--font-sans);
+  }
+
+  .links a {
+    color: var(--text-body);
+    transition: color 0.25s;
+  }
+
+  .links a:hover {
+    color: var(--accent);
+  }
+
+  .links .cta {
+    background: var(--accent);
+    color: var(--on-accent);
+    padding: 10px 18px;
+    border-radius: 3px;
+    font-weight: 600;
+    transition: transform 0.25s;
+  }
+
+  .links .cta:hover {
+    color: var(--on-accent);
+    transform: translateY(-1px);
+  }
+
+  .nav-line {
+    bottom: -1px;
+  }
+
+  @media (max-width: 1024px) {
+    .links a:not(.cta) {
+      display: none;
+    }
+  }
+</style>
