@@ -1,0 +1,6 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/nexeracl/nexera
+    - /usr/bin/bash -lc 'cd "$DEPLOYPATH" && npm ci --omit=dev'
+    - /usr/bin/bash -lc 'cd "$DEPLOYPATH" && npm run build:node'
