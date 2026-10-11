@@ -7,6 +7,7 @@ import Servicios from '@/components/Servicios.astro';
 import Automatizacion from '@/components/Automatizacion.astro';
 import Contacto from '@/components/Contacto.astro';
 import Footer from '@/components/Footer.astro';
+import Chatbox from '@/components/Chatbox.astro';
 import { site } from '@/config/site';
 ---
 
@@ -23,9 +24,11 @@ import { site } from '@/config/site';
     <Contacto />
   </main>
   <Footer />
+  <Chatbox />
 </Layout>
 
 <script>
   import '@/scripts/enhance';
   import '@/scripts/form';
+  import '@/scripts/chatbox';
 </script>
