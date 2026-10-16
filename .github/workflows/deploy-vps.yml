@@ -67,9 +67,13 @@ jobs:
           mkdir release
           cp package.json package-lock.json release/
           cp -R dist release/dist
-          rsync -az --delete --exclude='.env' \
+          rsync -az --exclude='.env' \
             -e 'ssh -i ~/.ssh/id_ed25519' \
-            release/ "$VPS_USER@$VPS_HOST:/opt/nexera/"
+            release/package.json release/package-lock.json \
+            "$VPS_USER@$VPS_HOST:/opt/nexera/"
+          rsync -az --delete \
+            -e 'ssh -i ~/.ssh/id_ed25519' \
+            release/dist/ "$VPS_USER@$VPS_HOST:/opt/nexera/dist/"
 
       - name: Install production dependencies and restart
         env:
