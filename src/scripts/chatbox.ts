@@ -13,6 +13,18 @@ if (root) {
   const whatsapp = root.dataset.whatsapp;
 
   if (windowEl && openButton && closeButton && messages && choices && form && input) {
+    const syncVisualViewport = () => {
+      const viewport = window.visualViewport;
+      root.style.setProperty('--chat-viewport-top', `${viewport?.offsetTop ?? 0}px`);
+      root.style.setProperty('--chat-viewport-height', `${viewport?.height ?? window.innerHeight}px`);
+    };
+
+    syncVisualViewport();
+    window.visualViewport?.addEventListener('resize', syncVisualViewport);
+    window.visualViewport?.addEventListener('scroll', syncVisualViewport);
+    input.addEventListener('focus', () => root.classList.add('is-input-focused'));
+    input.addEventListener('blur', () => root.classList.remove('is-input-focused'));
+
     type Intent = 'ia' | 'training' | 'automation' | 'consulting' | 'quality' | 'person' | 'unknown';
     type Stage = 'start' | 'goal' | 'context' | 'done';
 
@@ -216,7 +228,7 @@ if (root) {
       windowEl.hidden = !open;
       openButton.setAttribute('aria-expanded', String(open));
       root.classList.toggle('is-open', open);
-      if (open) input.focus();
+      if (open) input.focus({ preventScroll: true });
       else openButton.focus();
     };
 

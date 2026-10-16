@@ -6,6 +6,21 @@
  * Sin JS nada de esto corre: html.no-js muestra todo el contenido apilado.
  */
 
+import { track } from './track';
+
+document.addEventListener('click', (event) => {
+  const target = (event.target as HTMLElement).closest<HTMLElement>('[data-track-event]');
+  const name = target?.dataset.trackEvent;
+  if (name) track(name);
+
+  const service = target?.dataset.contactService;
+  if (service) {
+    const option = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="servicio"]'))
+      .find((input) => input.value === service);
+    if (option) option.checked = true;
+  }
+});
+
 // ── Timeline del proceso ──
 const stepBtns = Array.from(document.querySelectorAll<HTMLElement>('[data-step-btn]'));
 const stepPanels = Array.from(document.querySelectorAll<HTMLElement>('[data-step-panel]'));

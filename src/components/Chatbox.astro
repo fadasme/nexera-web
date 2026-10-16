@@ -41,7 +41,7 @@ import { site } from '@/config/site';
   <div hidden data-chat-link-template><a class="message-link"></a></div>
   <div hidden data-chat-choices-template><div class="choices"><button type="button"></button></div></div>
 
-  <button class="launcher" type="button" data-chat-open aria-label="Abrir la guía digital de Nexera" aria-expanded="false" aria-controls="chat-window">
+  <button class="launcher" type="button" data-chat-open data-track-event="chat_abierto" aria-label="Abrir la guía digital de Nexera" aria-expanded="false" aria-controls="chat-window">
     <span class="mascot" aria-hidden="true">
       <span class="antenna"></span>
       <span class="face">
@@ -526,6 +526,21 @@ import { site } from '@/config/site';
       bottom: 78px;
       width: calc(100vw - 24px);
       height: min(520px, calc(100dvh - 100px));
+      min-height: 0;
+    }
+
+    .chatbox.is-input-focused .window {
+      top: calc(var(--chat-viewport-top, 0px) + max(12px, var(--chat-viewport-height, 100dvh) - 532px));
+      right: 12px;
+      bottom: auto;
+      left: 12px;
+      width: auto;
+      height: min(520px, calc(var(--chat-viewport-height, 100dvh) - 24px));
+    }
+
+    .chatbox.is-input-focused .launcher {
+      visibility: hidden;
+      pointer-events: none;
     }
 
     .chatbox .launcher {

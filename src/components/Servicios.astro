@@ -1,5 +1,13 @@
 ---
 import { SERVICIOS_TABS } from '@/config/contenido';
+
+const servicioFormulario = [
+  'Consultoría de IA',
+  'Capacitación en IA',
+  'Automatización de procesos',
+  'Consultoría tecnológica',
+  'Calidad y DevOps',
+];
 ---
 
 <section id="servicios" class="servicios-wrap">
@@ -7,7 +15,7 @@ import { SERVICIOS_TABS } from '@/config/contenido';
     <div class="head">
       <div>
         <p class="eyebrow">Servicios</p>
-        <h2>Servicios principales para empresas que quieren avanzar con tecnología real.</h2>
+        <h2>De un desafío concreto a una solución tecnológica que puedas evaluar.</h2>
       </div>
       <span class="hint" aria-hidden="true">↑ pasa el cursor por la lista</span>
     </div>
@@ -42,8 +50,20 @@ import { SERVICIOS_TABS } from '@/config/contenido';
                   <span class="chip">{chip}</span>
                 ))}
               </div>
-              <a href="#contacto" class="btn-line panel-cta">
-                Conversemos <span aria-hidden="true">→</span>
+              <div class="deliverables">
+                <h4>Qué podríamos definir o entregar</h4>
+                <ul>
+                  {s.posiblesEntregables.map((item) => <li>{item}</li>)}
+                </ul>
+                <p>El alcance depende del contexto y se acuerda antes de iniciar.</p>
+              </div>
+              <a
+                href="#contacto"
+                class="btn-line panel-cta"
+                data-track-event={`cta_servicio_${s.num}`}
+                data-contact-service={servicioFormulario[i]}
+              >
+                Consultar por este servicio <span aria-hidden="true">→</span>
               </a>
             </article>
           ))
@@ -217,7 +237,38 @@ import { SERVICIOS_TABS } from '@/config/contenido';
     padding-top: 15px;
   }
 
-  .chips + .panel-cta {
+  .deliverables {
+    margin-top: 30px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .deliverables h4 {
+    margin: 0 0 12px;
+    color: var(--text-hi);
+    font: 600 14px/1.4 var(--font-display);
+  }
+
+  .deliverables ul {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+    padding-left: 19px;
+    color: var(--text-dim);
+    font: 400 13.5px/1.55 var(--font-sans);
+  }
+
+  .deliverables li::marker {
+    color: var(--accent);
+  }
+
+  .deliverables p {
+    margin: 14px 0 0;
+    color: var(--text-mute);
+    font: 400 11.5px/1.5 var(--font-sans);
+  }
+
+  .deliverables + .panel-cta {
     margin-top: 28px;
   }
 

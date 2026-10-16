@@ -1,0 +1,345 @@
+---
+---
+
+<section class="proyecto-wrap" aria-labelledby="proyecto-title">
+  <div class="container proyecto">
+    <div class="copy">
+      <p class="eyebrow">Proyecto aplicado</p>
+      <h2 id="proyecto-title">Ecommerce para una perfumería.</h2>
+      <p class="intro">
+        Diseño y desarrollo de una tienda online para explorar productos, marcas y categorías, y
+        completar el pedido con apoyo directo del comercio.
+      </p>
+      <a href="#contacto" class="btn-line" data-track-event="cta_proyecto_ecommerce">
+        Conversemos sobre tu ecommerce <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <div class="tienda" aria-label="Vista ilustrativa de una tienda de perfumes">
+      <div class="tienda-top">
+        <span class="marca-demo">PERFUMERÍA <i>ONLINE</i></span>
+        <span class="icono-carrito" aria-label="Carrito, 2 productos">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.1 10.1a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.4L22 8H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
+          <b>2</b>
+        </span>
+      </div>
+      <div class="busqueda">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
+        <span>Buscar perfumes, marcas...</span>
+      </div>
+      <div class="categorias" aria-label="Categorías">
+        <span>Perfumes</span><span>Cuidado personal</span><span>Ofertas</span>
+      </div>
+      <div class="catalogo">
+        <article class="producto">
+          <div class="producto-visual frasco-uno"><span class="frasco"></span></div>
+          <p class="tipo">PARA ELLA</p><h3>Fragancias</h3><span class="ver-producto">Ver producto <b>→</b></span>
+        </article>
+        <article class="producto">
+          <div class="producto-visual frasco-dos"><span class="frasco"></span></div>
+          <p class="tipo">PARA ÉL</p><h3>Nuevos aromas</h3><span class="ver-producto">Ver producto <b>→</b></span>
+        </article>
+        <article class="producto">
+          <div class="producto-visual frasco-tres"><span class="frasco"></span></div>
+          <p class="tipo">DESTACADOS</p><h3>Favoritos</h3><span class="ver-producto">Ver producto <b>→</b></span>
+        </article>
+      </div>
+      <div class="tienda-footer">
+        <span><b class="check">✓</b> Catálogo y búsqueda</span>
+        <span><b class="check">✓</b> Carrito y pedido por WhatsApp</span>
+      </div>
+      <p class="nota">El pago y el despacho se coordinan directamente con el comercio.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .proyecto-wrap {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--bg-alt);
+  }
+
+  .proyecto {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 72px;
+    align-items: center;
+    padding-top: 84px;
+    padding-bottom: 84px;
+  }
+
+  .eyebrow {
+    margin: 0 0 16px;
+  }
+
+  h2 {
+    max-width: 14em;
+    margin: 0 0 20px;
+    color: var(--text-hi);
+    font: 800 38px/1.06 var(--font-display);
+    letter-spacing: -0.03em;
+    text-wrap: pretty;
+  }
+
+  .intro {
+    max-width: 38em;
+    margin: 0 0 28px;
+    color: var(--text-body);
+    font: 400 16px/1.65 var(--font-sans);
+    text-wrap: pretty;
+  }
+
+  .btn-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .tienda {
+    overflow: hidden;
+    padding: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: #0a1423;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
+  }
+
+  .tienda-top,
+  .tienda-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .marca-demo {
+    color: var(--text-hi);
+    font: 700 12px/1 var(--font-sans);
+    letter-spacing: 0.1em;
+  }
+
+  .marca-demo i {
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  .icono-carrito {
+    position: relative;
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+    color: var(--text-hi);
+  }
+
+  .icono-carrito svg,
+  .busqueda svg {
+    width: 17px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.6;
+  }
+
+  .icono-carrito b {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    display: grid;
+    width: 15px;
+    height: 15px;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #06101d;
+    font: 700 9px/1 var(--font-sans);
+  }
+
+  .busqueda {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 19px;
+    padding: 10px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    color: var(--text-mute);
+    font: 400 11px/1.3 var(--font-sans);
+  }
+
+  .categorias {
+    display: flex;
+    gap: 8px;
+    overflow: hidden;
+    margin-top: 14px;
+    color: var(--text-body);
+    font: 500 10px/1 var(--font-sans);
+    white-space: nowrap;
+  }
+
+  .categorias span {
+    padding: 8px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+  }
+
+  .catalogo {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .producto {
+    min-width: 0;
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.025);
+  }
+
+  .producto-visual {
+    display: grid;
+    height: 104px;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 4px;
+    background: radial-gradient(ellipse at 50% 78%, rgba(69, 199, 255, 0.15), transparent 55%), #101d2b;
+  }
+
+  .frasco {
+    position: relative;
+    display: block;
+    width: 38px;
+    height: 57px;
+    border: 1px solid rgba(218, 237, 255, 0.75);
+    border-radius: 8px 8px 11px 11px;
+    background: linear-gradient(115deg, rgba(255,255,255,.6), rgba(111,207,255,.14) 35%, rgba(12,23,43,.75) 76%);
+    box-shadow: inset 4px 0 8px rgba(255,255,255,.14), 0 9px 18px rgba(0,0,0,.26);
+  }
+
+  .frasco::before {
+    position: absolute;
+    top: -8px;
+    left: 12px;
+    width: 12px;
+    height: 8px;
+    border: 1px solid rgba(218, 237, 255, 0.75);
+    border-bottom: 0;
+    border-radius: 3px 3px 0 0;
+    background: #a9c9dc;
+    content: '';
+  }
+
+  .frasco-dos .frasco {
+    width: 43px;
+    height: 51px;
+    border-radius: 4px 4px 9px 9px;
+    background: linear-gradient(110deg, #c6b392, #75624c 36%, #2d2830 78%);
+  }
+
+  .frasco-dos .frasco::before {
+    left: 14px;
+    width: 14px;
+    background: #d0c0a4;
+  }
+
+  .frasco-tres .frasco {
+    width: 33px;
+    height: 62px;
+    border-radius: 12px 12px 7px 7px;
+    background: linear-gradient(105deg, #f3d0da, #b87991 45%, #572b49 90%);
+  }
+
+  .tipo {
+    margin: 10px 0 4px;
+    color: var(--accent);
+    font: 500 8px/1.2 var(--font-mono);
+    letter-spacing: 0.06em;
+  }
+
+  .producto h3 {
+    overflow: hidden;
+    margin: 0;
+    color: var(--text-hi);
+    font: 600 11px/1.35 var(--font-sans);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ver-producto {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    color: var(--text-mute);
+    font: 400 9px/1.2 var(--font-sans);
+  }
+
+  .ver-producto b {
+    color: var(--accent);
+  }
+
+  .tienda-footer {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px 20px;
+    margin-top: 17px;
+    color: var(--text-body);
+    font: 500 10px/1.4 var(--font-sans);
+  }
+
+  .check {
+    margin-right: 5px;
+    color: var(--accent);
+  }
+
+  .nota {
+    margin: 12px 0 0;
+    color: var(--text-mute);
+    font: 400 10px/1.5 var(--font-sans);
+  }
+
+  @media (max-width: 1024px) {
+    .proyecto { grid-template-columns: 1fr; gap: 36px; }
+
+    h2 {
+      font-size: 32px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .proyecto {
+      gap: 28px;
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
+
+    h2 {
+      font-size: 27px;
+    }
+
+    .tienda {
+      padding: 15px;
+    }
+
+    .catalogo {
+      gap: 7px;
+    }
+
+    .producto {
+      padding: 6px;
+    }
+
+    .producto-visual {
+      height: 88px;
+    }
+
+    .tienda-footer {
+      display: grid;
+      gap: 8px;
+    }
+  }
+</style>

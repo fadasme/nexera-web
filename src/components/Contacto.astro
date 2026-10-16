@@ -14,12 +14,12 @@ const ubicacion = [site.city, site.country === 'CL' ? 'Chile' : site.country]
         <p class="eyebrow">Contacto</p>
         <h2>Cuéntanos qué proceso quieres mejorar o qué desafío de IA quieres resolver.</h2>
         <p class="sub">
-          Revisaremos tu necesidad para determinar si podemos ayudarte directamente o si requiere
-          capacidades adicionales.
+          La conversación inicial sirve para entender el contexto, aclarar el objetivo y confirmar
+          si Nexera es adecuada para el desafío. El alcance se define antes de iniciar cualquier trabajo.
         </p>
         <div class="datos">
           <a href={`mailto:${site.email}`}>{site.email}</a>
-          <a href={`https://wa.me/${site.whatsapp}`} rel="noopener">
+          <a href={`https://wa.me/${site.whatsapp}`} rel="noopener" data-track-event="click_whatsapp_contacto">
             Escríbenos por WhatsApp <span class="flecha" aria-hidden="true">→</span>
           </a>
           <span class="lugar">{ubicacion} · Atención directa</span>

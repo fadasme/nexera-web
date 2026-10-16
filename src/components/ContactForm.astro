@@ -55,7 +55,8 @@ const ERRORES: Record<string, string> = {
     <input type="hidden" name="_ts" value="" data-ts />
 
     <fieldset data-step="1" class="active">
-      <legend>Tamaño aproximado de la empresa</legend>
+      <legend>Tamaño aproximado de la empresa <span class="optional">Opcional</span></legend>
+      <p class="step-hint">Si aún no lo tienes claro, puedes continuar sin elegir.</p>
       <div class="picks">
         {TAMANOS.map((t) => (
           <label class="pick">
@@ -67,7 +68,8 @@ const ERRORES: Record<string, string> = {
     </fieldset>
 
     <fieldset data-step="2">
-      <legend>Servicio de interés</legend>
+      <legend>Servicio de interés <span class="optional">Opcional</span></legend>
+      <p class="step-hint">Si tienes varias necesidades, selecciona la más cercana; podemos revisar las demás después.</p>
       <div class="picks">
         {SERVICIOS.map((s) => (
           <label class="pick">
@@ -120,7 +122,7 @@ const ERRORES: Record<string, string> = {
         <textarea
           name="mensaje"
           rows="2"
-          placeholder="Descripción del desafío"
+          placeholder="¿Qué te gustaría mejorar o conseguir?"
           required
           minlength={LIMITES.mensajeMin}
           maxlength={LIMITES.mensajeMax}
@@ -154,6 +156,7 @@ const ERRORES: Record<string, string> = {
         </button>
       )}
     </noscript>
+    <p class="form-note">No incluyas contraseñas, datos sensibles ni información confidencial en la descripción.</p>
   </form>
 
   <div class="sent" data-sent hidden>
@@ -260,6 +263,28 @@ const ERRORES: Record<string, string> = {
     margin: 0 0 22px;
     font: 700 22px/1.25 var(--font-display);
     color: var(--text-hi);
+  }
+
+  .optional {
+    margin-left: 8px;
+    color: var(--text-mute);
+    font: 400 10px/1 var(--font-mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .step-hint,
+  .form-note {
+    color: var(--text-mute);
+    font: 400 12px/1.5 var(--font-sans);
+  }
+
+  .step-hint {
+    margin: -12px 0 18px;
+  }
+
+  .form-note {
+    margin: 18px 0 0;
   }
 
   .picks {
