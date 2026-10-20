@@ -64,13 +64,22 @@ jobs:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_USER: ${{ secrets.VPS_USER }}
         run: |
-          mkdir release
+          mkdir -p release/scripts release/db
           cp package.json package-lock.json release/
+          cp .env.example release/
+          cp scripts/setup.mjs scripts/setup-ui.mjs release/scripts/
+          cp db/schema.mysql.sql release/db/
           cp -R dist release/dist
           rsync -az --exclude='.env' \
             -e 'ssh -i ~/.ssh/id_ed25519' \
-            release/package.json release/package-lock.json \
+            release/package.json release/package-lock.json release/.env.example \
             "$VPS_USER@$VPS_HOST:/opt/nexera/"
+          rsync -az \
+            -e 'ssh -i ~/.ssh/id_ed25519' \
+            release/scripts/ "$VPS_USER@$VPS_HOST:/opt/nexera/scripts/"
+          rsync -az \
+            -e 'ssh -i ~/.ssh/id_ed25519' \
+            release/db/ "$VPS_USER@$VPS_HOST:/opt/nexera/db/"
           rsync -az --delete \
             -e 'ssh -i ~/.ssh/id_ed25519' \
             release/dist/ "$VPS_USER@$VPS_HOST:/opt/nexera/dist/"

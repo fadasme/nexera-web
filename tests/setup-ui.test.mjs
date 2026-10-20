@@ -95,6 +95,13 @@ test('el resumen muestra decisiones sin imprimir secretos', () => {
   assert.doesNotMatch(summary, new RegExp(secret));
 });
 
+test('la configuración de Resend permite claves de solo envío sin consultar dominios', async () => {
+  const source = await readFile(setupScript, 'utf8');
+  assert.match(source, /function validateResend\(apiKey\)\s*\{\s*if \(!\/\^re_/);
+  assert.doesNotMatch(source, /api\.resend\.com\/domains/);
+  assert.match(source, /clave de solo envío limitada al dominio/);
+});
+
 test('los próximos pasos cambian según el destino', () => {
   const node = renderNextSteps('node', { color: false });
   const cloudflare = renderNextSteps('cloudflare', { color: false });

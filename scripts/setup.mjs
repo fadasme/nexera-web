@@ -463,9 +463,10 @@ async function collectMysql(env, prompts) {
   if (!env.MYSQL_HOST || !env.MYSQL_USER || !env.MYSQL_DATABASE) throw new Error('MySQL requiere host, usuario y base de datos.');
 }
 
-async function validateResend(apiKey) {
-  const response = await fetch('https://api.resend.com/domains', { headers: { Authorization: `Bearer ${apiKey}` } });
-  if (!response.ok) throw new Error(`Resend rechazó la API key (HTTP ${response.status}).`);
+function validateResend(apiKey) {
+  if (!/^re_[A-Za-z0-9_-]+$/.test(apiKey)) {
+    throw new Error('La API key de Resend no tiene el formato esperado (re_...).');
+  }
 }
 
 async function applyMysql(env) {
@@ -702,11 +703,11 @@ async function main() {
         manual.push(`Ejecuta setup sin --dry-run para validar y aplicar ${target === 'node' ? 'MySQL' : 'D1'}.`);
       }
       if (env.MAIL_PROVIDER === 'resend') {
-        manual.push('Ejecuta setup sin --dry-run para validar Resend.');
+        manual.push('La clave de Resend se verificará al enviar el primer correo; usa una clave de solo envío limitada al dominio.');
       }
     } else {
       if (env.MAIL_PROVIDER === 'resend') {
-        await runAction('Validando la API key de Resend', () => validateResend(env.RESEND_API_KEY));
+        await runAction('Comprobando el formato de la API key de Resend', () => validateResend(env.RESEND_API_KEY));
       }
       if (target === 'node') {
         if (flags['no-db']) {
